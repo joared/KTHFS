@@ -1,0 +1,2 @@
+# KTHFS
+KTH Formula Student
