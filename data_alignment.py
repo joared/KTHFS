@@ -2,6 +2,23 @@ import numpy as np
 from bisect import bisect_left
 
 
+def convert_angle_in_range(max_angle, min_angle, val):
+	angle_range = max_angle-min_angle
+	if val > max_angle:
+		return val-angle_range
+	elif val < min_angle:
+		return val+angle_range
+	else:
+		return val
+
+def min_angle_diff(max_angle, min_angle, a1, a2):
+	diff1 = max_angle-a1 + a2-min_angle
+	diff2 = -(max_angle-a2 + a1-min_angle)
+	diff3 = a2-a1
+	diffs = [diff1, diff2, diff3]
+	abs_diffs = [abs(v) for v in diffs]
+	return diffs[abs_diffs.index(min(abs_diffs))]
+
 def align_time(imus):
 	"""
 	Add aligned time to start at same time with the same frequency
@@ -68,86 +85,6 @@ def align_data(imus, vel_x=False, vel_y=False, latitude=False, longitude=False, 
 				aligned_velocity.append(interpolated_velocity)
 			imu.vel_x_aligned = aligned_velocity
 
-	# Align y velocity
-	if vel_y:
-		for imu in imus:
-			aligned_velocity = []
-			for t in imu.time_aligned:
-				# Find the previous value
-				prev_index = closest_index(imu.time, t)
-				prev_time = imu.time[prev_index]
-				prev_velocity = imu.vel_y[prev_index]
-
-				# Find the next value
-				next_index = prev_index + 1
-				next_time = imu.time[next_index]
-				next_velocity = imu.vel_y[next_index]
-
-				# Interpolate the value to requested time t
-				interpolated_velocity = interpolate_linear(prev_velocity, next_velocity, prev_time, next_time, t)
-				aligned_velocity.append(interpolated_velocity)
-			imu.vel_y_aligned = aligned_velocity
-
-	# Align latitude
-	if latitude:
-		for imu in imus:
-			aligned_lat = []
-			for t in imu.time_aligned:
-				# Find the previous value
-				prev_index = closest_index(imu.time, t)
-				prev_time = imu.time[prev_index]
-				prev_lat = imu.latitude[prev_index]
-
-				# Find the next value
-				next_index = prev_index + 1
-				next_time = imu.time[next_index]
-				next_lat = imu.latitude[next_index]
-
-				# Interpolate the value to requested time t
-				interpolated_lat = interpolate_linear(prev_lat, next_lat, prev_time, next_time, t)
-				aligned_lat.append(interpolated_lat)
-			imu.latitude_aligned = aligned_lat
-
-	# Align longitude
-	if longitude:
-		for imu in imus:
-			aligned_long = []
-			for t in imu.time_aligned:
-				# Find the previous value
-				prev_index = closest_index(imu.time, t)
-				prev_time = imu.time[prev_index]
-				prev_long = imu.longitude[prev_index]
-
-				# Find the next value
-				next_index = prev_index + 1
-				next_time = imu.time[next_index]
-				next_long = imu.longitude[next_index]
-
-				# Interpolate the value to requested time t
-				interpolated_long = interpolate_linear(prev_long, next_long, prev_time, next_time, t)
-				aligned_long.append(interpolated_long)
-			imu.longitude_aligned = aligned_long
-
-	# Align yaw
-	if yaw:
-		for imu in imus:
-			aligned_yaw = []
-			for t in imu.time_aligned:
-				# Find the previous value
-				prev_index = closest_index(imu.time, t)
-				prev_time = imu.time[prev_index]
-				prev_yaw = imu.yaw[prev_index]
-
-				# Find the next value
-				next_index = prev_index + 1
-				next_time = imu.time[next_index]
-				next_yaw = imu.yaw[next_index]
-
-				# Interpolate the value to requested time t
-				interpolated_yaw = interpolate_linear(prev_yaw, next_yaw, prev_time, next_time, t)
-				aligned_yaw.append(interpolated_yaw)
-			imu.yaw_aligned = aligned_yaw
-
 	return imus
 
 
@@ -159,9 +96,19 @@ def interpolate_linear(prev_val, next_val, prev_t, next_t, new_t):
 	Output: Interpolated value at new_t
 	"""
 	new_val = (prev_val*(next_t - new_t) + next_val*(new_t - prev_t))/(next_t-prev_t)
+	#new_val = (next_val-prev_val)/(next_t-prev_t)*(new_t-prev_t) + prev_val
+	#if new_val != new_val_jack: 
+	#	raise Exception("Wrong calculation!: {} != {}".format(new_val_jack, new_val))
 	return new_val
 
-
+def interpolate_linear_angle(prev_val, next_val, prev_t, next_t, new_t):
+	max_angle = 180
+	min_angle = -180
+	next_val = prev_val + min_angle_diff(max_angle, min_angle, prev_val, next_val)
+	new_val = interpolate_linear(prev_val, next_val, prev_t, next_t, new_t)
+	new_val = convert_angle_in_range(max_angle, min_angle, new_val)
+	return new_val
+		
 def closest_index(data_list, val):
 	"""
 	Calculate the index of the list value closest to given val 
