@@ -2,7 +2,7 @@
 import os
 import numpy as np
 from data_alignment import closest_index, interpolate_linear, interpolate_linear_angle
-from envs.pillow.Tools.scripts.objgraph import ignore
+#from envs.pillow.Tools.scripts.objgraph import ignore
 
 class ImuReader:
 	def __init__(self, files_dir=""):

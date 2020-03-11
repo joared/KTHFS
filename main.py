@@ -34,7 +34,7 @@ def plot_angle_error_vs_slip_angle(ref_imu, comp_imus):
 	#colors = ["blue", "orange", "green"]
 	
 	#plt.subplot(2,1,1)
-	plt.ylim([-20, 20])
+	#plt.ylim([-20, 20])
 	plt.plot(ref_imu.time_aligned, ref_imu.slip_angle_aligned)
 	for imu in comp_imus:
 		sq_errs = []
@@ -42,13 +42,18 @@ def plot_angle_error_vs_slip_angle(ref_imu, comp_imus):
 			err = min_angle_diff(180, -180, yaw_actual, imu.yaw_aligned[i])
 			sq_err = err**2
 			sq_errs.append(err)
-		print("Plotting")
 		plt.plot(ref_imu.time_aligned, sq_errs)
 	plt.legend([ref_imu.NAME + " <slip angle>"] + [imu.NAME + " yaw err"  for imu in comp_imus])
 	#plt.subplot(2,1,2)
 	#plt.ylim([-20, 20])
 	#plt.plot(ref_imu.slip_angle)	
 		
+def plot_yaw(imus):
+	for imu in imus:
+		for imu in imus:
+			plt.plot(imu.time_aligned, imu.yaw_aligned)
+	plt.legend([imu.NAME + " yaw"  for imu in imus])
+
 def __plot_angle_squared_error(ref_imu, comp_imus):
 	#colors = ["blue", "orange", "green"]
 	#plt.ylim(top=30000)
@@ -72,7 +77,7 @@ if __name__ == '__main__':
 	
 	tests = ["General 8", "General CRC", "Auto 8", "Auto CRC"]
 	xsense_files = ["XSENS_general_000.txt", "XSENS_general_crc_0001.txt", "XSENS_auto_0003.txt", "XSENS_auto_crc_0004.txt"]
-	sbg_files = ["SBG_general_0000.txt", "SBG_general_crc_0001.txt", "SBG_auto_0003.txt", "SBG_auto_crc_0004.txt"]
+	sbg_files = ["SBG_general_000.txt", "SBG_general_crc_0001.txt", "SBG_auto_0003.txt", "SBG_auto_crc_0004.txt"]
 	vbox_files = ["VBOX0000.VBO", "VBOX0001.VBO", "VBOX0003.VBO", "VBOX0004.VBO"]
 	
 	
@@ -132,7 +137,8 @@ if __name__ == '__main__':
 	#plt.legend([imu.NAME for imu in imus])
 	
 	plot_angle_error_vs_slip_angle(vbox, [sbg, xsens])
-	
+	plt.figure()
+	plot_yaw(imus)
 	#plt.plot(xsens.time, xsens.vel_inc_x)
 	plt.show()
 	
