@@ -1,0 +1,8 @@
+prefix=/home/joar/KTHFS/sbg_test_ws/install
+
+Name: fs_msgs
+Description: Description of fs_msgs
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

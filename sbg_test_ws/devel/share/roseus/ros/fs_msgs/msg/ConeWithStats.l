@@ -1,0 +1,1 @@
+/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConeWithStats.l

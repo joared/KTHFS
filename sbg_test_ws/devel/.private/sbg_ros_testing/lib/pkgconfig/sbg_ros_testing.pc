@@ -1,0 +1,8 @@
+prefix=/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing
+
+Name: sbg_ros_testing
+Description: Description of sbg_ros_testing
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

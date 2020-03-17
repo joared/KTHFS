@@ -1,0 +1,1 @@
+/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgsConfig-version.cmake
