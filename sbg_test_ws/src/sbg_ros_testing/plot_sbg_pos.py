@@ -30,7 +30,7 @@ class SBGPosPlotter:
         sec = msg.header.stamp.to_sec()
         if sec > self.start_time:
             if sec < self.end_time:
-                rospy.loginfo("Plotting long and lat at time: {}".format(sec))
+                #rospy.loginfo("Plotting long and lat at time: {}".format(sec))
                 self._longs.append(msg.longitude)
                 self._lats.append(msg.latitude)
             else:
@@ -43,11 +43,11 @@ class SBGPosPlotter:
         if self._pos_done: 
             self.plot()
             return
-
+        print(rospy.Time.now())
         sec = msg.header.stamp.to_sec()
         if sec > self.start_time:
             if sec < self.end_time:
-                rospy.loginfo("Plotting pos x and pos y at time: {}".format(sec))
+                #rospy.loginfo("Plotting pos x and pos y at time: {}".format(sec))
                 self._xpos.append(msg.point.x)
                 self._ypos.append(msg.point.y)
             else:
@@ -59,11 +59,12 @@ class SBGPosPlotter:
         if self._has_plotted:
             return
         if self._lng_lat_done and self._pos_done:
+            self._has_plotted = True
             plt.plot(self._longs, self._lats)
             plt.figure()
             plt.plot(self._xpos, self._ypos)
             plt.show()
-            self._has_plotted = True
+            
 
 if __name__ == "__main__":
     rospy.init_node("sbg_pos_plotter")
