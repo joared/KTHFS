@@ -95,7 +95,9 @@ class ImuReader:
 	def read_processed_data(self, file_path, delimiter=None):
 		self.reset()
 		if delimiter is None: delimiter = "\t"
-		file_path = os.path.join(self.files_dir, file_path + ".processed")
+		#file_path = os.path.join(self.files_dir, file_path + ".processed")
+		file_path = os.path.splitext(file_path)[0] + ".processed"
+		file_path = os.path.join(self.files_dir, file_path)
 		with open(file_path, "r") as f:
 			read_keys = True
 			for line in f:
@@ -116,7 +118,8 @@ class ImuReader:
 
 	def save_processed_data(self, file_path, delimiter=None):
 		if delimiter is None: delimiter = "\t"
-		file_path = os.path.join(self.files_dir, file_path + ".processed")
+		file_path = os.path.splitext(file_path)[0] + ".processed"
+		file_path = os.path.join(self.files_dir, file_path)
 		with open(file_path, "w") as f:
 			f.write(delimiter.join(self.DATA_PROCESSED_KEYS) + "\n")
 			
