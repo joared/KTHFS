@@ -3,7 +3,7 @@ import os
 import numpy as np
 from data_alignment import closest_index, interpolate_linear, interpolate_linear_angle
 
-class ImuReader:
+class ImuReader(object):
 	"""
 	TODO: names like processed and raw are a bit inconsistent, maybe change that
 	Base class for IMU readers that read IMU data from a generated ASCII file. 
@@ -41,9 +41,9 @@ class ImuReader:
 						   "vel_x",	# m/s
 						   "vel_y",	# m/s
 						   "vel_z",	# m/s
-						   "roll",	# degrees
-						   "pitch", # degrees
-						   "yaw",	# degrees
+						   "roll",	# radians
+						   "pitch", # radians
+						   "yaw",	# radians
 						   "acc_x", # m/s^2
 						   "acc_y", # m/s^2
 						   "acc_z", # m/s^2
@@ -257,13 +257,19 @@ class SBGReader(ImuReader):
 			data = self.data_raw.copy()
 		print("Processing raw data...")
 		self.time = self._utc_to_sec(data)
-		self.vel_x = data["X Velocity"]
-		self.vel_y = data["Y Velocity"]
-		self.roll = data["Roll"]
-		self.pitch = data["Pitch"]
-		self.yaw = list(np.array(data["Yaw"]))#/180*np.pi
 		self.long = data["Longitude"]
 		self.lat = data["Latitude"]
+		self.vel_x = data["X Velocity"]
+		self.vel_y = data["Y Velocity"]
+		self.roll = list(np.array(data["Roll"])/180*np.pi)
+		self.pitch = list(np.array(data["Pitch"])/180*np.pi)
+		self.yaw = list(np.array(data["Yaw"])/180*np.pi)
+		self.acc_x = data["Accelerometer X"]
+		self.acc_y = data["Accelerometer Y"]
+		self.acc_z = data["Accelerometer Z"]
+		self.gyr_x = data["Gyroscope X"]
+		self.gyr_y = data["Gyroscope Y"]
+		self.gyr_z = data["Gyroscope Z"]
 		print(" done!")
 
 

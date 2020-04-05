@@ -5,10 +5,11 @@ import os
 from bisect import bisect_left
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
-from imu_data_reader import XsensReader, VBOXReader, SBGReader
+from imu_data_reader import ImuReader, XsensReader, VBOXReader, SBGReader
 from data_alignment import align_data, align_time, min_angle_diff
-from imu_plotting import *
+from imu_plotting import plot_sensors, plot_yaw
 
 def __plot_angle_squared_error(ref_imu, comp_imus):
 	#colors = ["blue", "orange", "green"]
@@ -25,7 +26,8 @@ def __plot_angle_squared_error(ref_imu, comp_imus):
 			
 if __name__ == '__main__':
 	xsens_path = "XSENS_data"
-	sbg_path = "SBG_data"
+	#sbg_path = "SBG_data"
+	sbg_path = "."
 	vbox_path = "VBOX_data"
 	#xsens = XsensReader(xsens_path)
 	sbg = SBGReader(sbg_path)
@@ -44,10 +46,9 @@ if __name__ == '__main__':
 	#sbg.save_processed_data(sbg_f)
 	#sbg.read_processed_data(sbg_f)
 	sbg.read_process_save(sbg_f, delimiter_read="\t", delimiter_save="\t")
-	#attrs_to_align = ["yaw"]
-	#sbg.align_data(attrs_to_align)
+	#plot_pos([sbg], True)
+	#plot_sensors(sbg)
+	plot_yaw([sbg])
 
-	#plt.plot(xsens.time, xsens.vel_inc_x)
-	plot_pos([sbg])
 	plt.show()
 	

@@ -3,35 +3,40 @@
 import rospy
 import os
 import sys
-from sensor_msgs.msg import NavSatFix
+from sensor_msgs.msg import NavSatFix, Imu
 from geometry_msgs.msg import PointStamped
 from nav_msgs.msg import Odometry
 from fs_msgs.msg import Sbg_ekf_status
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from tf.transformations import euler_from_quaternion
 
+import numpy as np
 import pickle
 
-class SBGPosPlotter:
+class SBGPlotter:
     def __init__(self, update_freq=1):
+        # TODO: use topics to define what topics are for each type of message (e.g. topics = {"pos": sbg_gps_position})
         interval = 1.0/update_freq*1000
 
+        
         # ekf solution status
-        self.ekf_status_msg = None
-        rospy.Subscriber("/sbg_ekf_status", Sbg_ekf_status, self.ekf_status_callback)
+        #self.ekf_status_msg = None
+        #rospy.Subscriber("/sbg_ekf_status", Sbg_ekf_status, self.ekf_status_callback)
 
         # OBS: the FuncAnimation objects needs to be stored in a variable, 
         # otherwise it's garbage collected (?) and doesn't work
         # long lat 
         self.long_lat_fig = plt.figure()
-        self.long_lat_fig.suptitle("EKF Coordinates")
+        self.long_lat_fig.suptitle("Geodetic Coordinates")
         #self.long_lat_fig_ax = self.long_lat_fig_ax.add_subplot(111)
         self.long_lat_artists = {}
         self.a1 = FuncAnimation(self.long_lat_fig, self.animate_long_lat, interval=interval)
         self._long = []
         self._lat = []
-        rospy.Subscriber("/sbg_gps_fix", NavSatFix, self.long_lat_callback)
+        rospy.Subscriber("/gps", NavSatFix, self.long_lat_callback)
 
+        """
         # position converted from long lat
         self.pos_fig = plt.figure()
         self.pos_fig.suptitle("EKF Position")
@@ -51,6 +56,20 @@ class SBGPosPlotter:
         self._x_vis_odom = []
         self._y_vis_odom = []
         rospy.Subscriber("/zed/speed", Odometry, self.visual_odometry_callback)
+        """
+        # odometry
+        self.odom_fig = plt.figure()
+        self.odom_fig.suptitle("Odometry")
+        self.a3 = FuncAnimation(self.odom_fig, self.animate_odometry, interval=interval)
+        self._odom_msgs = []
+        rospy.Subscriber("/odometry", Odometry, self.odometry_callback)
+
+        # imu
+        self.imu_fig = plt.figure()
+        self.imu_fig.suptitle("IMU")
+        self.a4 = FuncAnimation(self.imu_fig, self.animate_imu, interval=interval)
+        self._imu_msgs = []
+        rospy.Subscriber("/imu", Imu, self.imu_callback)
         
         """
         for fig, artists in zip([self.long_lat_fig, self.pos_fig, self.pos_vis_fig],
@@ -97,40 +116,92 @@ class SBGPosPlotter:
         self.ekf_status_msg = msg
 
     def long_lat_callback(self, msg):
-        print("update long lat")
+        #print("update long lat")
         self._long.append(msg.longitude)
         self._lat.append(msg.latitude)
                 
         
     def pos_callback(self, msg):
-        print("update pos")
+        #print("update pos")
         self._x_pos.append(msg.point.x)
         self._y_pos.append(msg.point.y)
 
 
     def visual_odometry_callback(self, msg):
-        print("update vis odom")
+        #print("update vis odom")
         self._x_vis_odom.append(msg.pose.pose.position.x)
         self._y_vis_odom.append(msg.pose.pose.position.y)
                 
 
+    def imu_callback(self, msg):
+        self._imu_msgs.append(msg)
+
+    def odometry_callback(self, msg):
+        self._odom_msgs.append(msg)
+
     def animate_long_lat(self, i):
         self.animate(self.long_lat_fig, self.long_lat_artists, self._long, self._lat)
-            
+
+        try:
+            q = self._odom_msgs[-1].pose.pose.orientation
+        except:
+            return
+        _,_,yaw = euler_from_quaternion([q.x, q.y, q.z, q.w])
+        x = self._long[-1]
+        y = self._lat[-1]
+        scale = 0.00003
+        dx = np.sin(yaw)*scale
+        dy = np.cos(yaw)*scale
+        plt.arrow(x, y, dx, dy, width=0.00001)
 
     def animate_pos(self, i):
         self.animate(self.pos_fig, self.pos_artists, self._x_pos, self._y_pos)
 
-
     def animate_visual_odometry(self, i):
         self.animate(self.pos_vis_fig, self.pos_vis_artists, self._x_vis_odom, self._y_vis_odom)
 
+    def animate_odometry(self, i):
+        # Dependent on geodetic msgs
+        plt.figure(self.odom_fig.number)
+        plt.cla()
+
+        qs = [m.pose.pose.orientation for m in self._odom_msgs]
+        yaws = [euler_from_quaternion([q.x, q.y, q.z, q.w])[2] for q in qs]
+        plt.plot(yaws)
+        
+        #q = self._odom_msg.pose.pose.orientation
+        #_,_,yaw = euler_from_quaternion([q.x, q.y, q.z, q.w])
+        #dx = np.cos(yaw)
+        #dy = np.sin(yaw)
+        #plt.arrow(x, y, dx, dy, width=0.0000001)
+
+
+
+    def animate_imu(self, i):
+        ax = [m.linear_acceleration.x for m in self._imu_msgs]
+        ay = [m.linear_acceleration.y for m in self._imu_msgs]
+        az = [m.linear_acceleration.z for m in self._imu_msgs]
+        gx = [m.angular_velocity.x for m in self._imu_msgs]
+        gy = [m.angular_velocity.y for m in self._imu_msgs]
+        gz = [m.angular_velocity.z for m in self._imu_msgs]
+
+        plt.figure(self.imu_fig.number)
+        plt.subplot(1, 2, 1)
+        plt.cla()
+        plt.plot(ax)
+        plt.plot(ay)
+        plt.plot(az)
+        plt.subplot(1, 2, 2)
+        plt.cla()
+        plt.plot(gx)
+        plt.plot(gy)
+        plt.plot(gz)
 
     def animate(self, fig, artists, x_ls, y_ls):
         fig = plt.figure(fig.number)
         plt.cla()
 
-        self.plot_ekf_status(fig, artists)
+        #self.plot_ekf_status(fig, artists)
 
         plt.plot(x_ls, y_ls)
         #plt.draw()
@@ -161,5 +232,5 @@ class SBGPosPlotter:
 if __name__ == "__main__":
     rospy.init_node("sbg_pos_plotter")
     update_freq = float(rospy.get_param(rospy.get_name() + "/freq"))
-    plotter = SBGPosPlotter(update_freq=update_freq)
+    plotter = SBGPlotter(update_freq=update_freq)
     rospy.spin()
