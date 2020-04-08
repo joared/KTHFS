@@ -67,14 +67,14 @@ set(sbg_ros_testing_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(sbg_ros_testing_SOURCE_PREFIX /home/joar/KTHFS/sbg_test_ws/src/sbg_ros_testing)
-  set(sbg_ros_testing_DEVEL_PREFIX /home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing)
+  set(sbg_ros_testing_SOURCE_PREFIX /home/jack/KTHFS/sbg_test_ws/src/sbg_ros_testing)
+  set(sbg_ros_testing_DEVEL_PREFIX /home/jack/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing)
   set(sbg_ros_testing_INSTALL_PREFIX "")
   set(sbg_ros_testing_PREFIX ${sbg_ros_testing_DEVEL_PREFIX})
 else()
   set(sbg_ros_testing_SOURCE_PREFIX "")
   set(sbg_ros_testing_DEVEL_PREFIX "")
-  set(sbg_ros_testing_INSTALL_PREFIX /home/joar/KTHFS/sbg_test_ws/install)
+  set(sbg_ros_testing_INSTALL_PREFIX /home/jack/KTHFS/sbg_test_ws/install)
   set(sbg_ros_testing_PREFIX ${sbg_ros_testing_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/joar/KTHFS/sbg_test_ws/install/lib;/home/joar/KTHFS/sbg_test_ws/devel/lib;/home/joar/dd2419_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/jack/KTHFS/sbg_test_ws/install/lib;/home/jack/KTHFS/sbg_test_ws/devel/lib;/home/jack/kth_fs_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

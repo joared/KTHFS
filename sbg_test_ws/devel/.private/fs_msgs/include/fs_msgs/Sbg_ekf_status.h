@@ -161,40 +161,6 @@ ros::message_operations::Printer< ::fs_msgs::Sbg_ekf_status_<ContainerAllocator>
 return s;
 }
 
-
-template<typename ContainerAllocator1, typename ContainerAllocator2>
-bool operator==(const ::fs_msgs::Sbg_ekf_status_<ContainerAllocator1> & lhs, const ::fs_msgs::Sbg_ekf_status_<ContainerAllocator2> & rhs)
-{
-  return lhs.COMPUTATION_MODE == rhs.COMPUTATION_MODE &&
-    lhs.ATTITUDE_VALID == rhs.ATTITUDE_VALID &&
-    lhs.HEADING_VALID == rhs.HEADING_VALID &&
-    lhs.VELOCITY_VALID == rhs.VELOCITY_VALID &&
-    lhs.POSITION_VALID == rhs.POSITION_VALID &&
-    lhs.VERT_REF_USED == rhs.VERT_REF_USED &&
-    lhs.MAG_REF_USED == rhs.MAG_REF_USED &&
-    lhs.GPS1_VEL_USED == rhs.GPS1_VEL_USED &&
-    lhs.GPS1_POS_USED == rhs.GPS1_POS_USED &&
-    lhs.GPS1_HDT_USED == rhs.GPS1_HDT_USED &&
-    lhs.GPS2_VEL_USED == rhs.GPS2_VEL_USED &&
-    lhs.GPS2_POS_USED == rhs.GPS2_POS_USED &&
-    lhs.GPS2_HDT_USED == rhs.GPS2_HDT_USED &&
-    lhs.ODO_USED == rhs.ODO_USED &&
-    lhs.DVL_BT_USED == rhs.DVL_BT_USED &&
-    lhs.DVL_WT_USED == rhs.DVL_WT_USED &&
-    lhs.USBL_USED == rhs.USBL_USED &&
-    lhs.AIR_DATA_USED == rhs.AIR_DATA_USED &&
-    lhs.ZUPT_USED == rhs.ZUPT_USED &&
-    lhs.ALIGN_VALID == rhs.ALIGN_VALID &&
-    lhs.DEPTH_USED == rhs.DEPTH_USED;
-}
-
-template<typename ContainerAllocator1, typename ContainerAllocator2>
-bool operator!=(const ::fs_msgs::Sbg_ekf_status_<ContainerAllocator1> & lhs, const ::fs_msgs::Sbg_ekf_status_<ContainerAllocator2> & rhs)
-{
-  return !(lhs == rhs);
-}
-
-
 } // namespace fs_msgs
 
 namespace ros
@@ -202,6 +168,12 @@ namespace ros
 namespace message_traits
 {
 
+
+
+// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
+// {'fs_msgs': ['/home/jack/KTHFS/sbg_test_ws/src/fs_msgs/msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg']}
+
+// !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
 
 

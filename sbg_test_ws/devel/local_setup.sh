@@ -1,1 +1,1 @@
-/home/joar/KTHFS/sbg_test_ws/devel/.private/catkin_tools_prebuild/local_setup.sh
+/home/jack/KTHFS/sbg_test_ws/devel/.private/catkin_tools_prebuild/local_setup.sh

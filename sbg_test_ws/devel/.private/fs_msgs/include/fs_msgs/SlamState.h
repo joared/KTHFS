@@ -71,22 +71,6 @@ ros::message_operations::Printer< ::fs_msgs::SlamState_<ContainerAllocator> >::s
 return s;
 }
 
-
-template<typename ContainerAllocator1, typename ContainerAllocator2>
-bool operator==(const ::fs_msgs::SlamState_<ContainerAllocator1> & lhs, const ::fs_msgs::SlamState_<ContainerAllocator2> & rhs)
-{
-  return lhs.lap_counter == rhs.lap_counter &&
-    lhs.cones_count_actual == rhs.cones_count_actual &&
-    lhs.cones_count_all == rhs.cones_count_all;
-}
-
-template<typename ContainerAllocator1, typename ContainerAllocator2>
-bool operator!=(const ::fs_msgs::SlamState_<ContainerAllocator1> & lhs, const ::fs_msgs::SlamState_<ContainerAllocator2> & rhs)
-{
-  return !(lhs == rhs);
-}
-
-
 } // namespace fs_msgs
 
 namespace ros
@@ -94,6 +78,12 @@ namespace ros
 namespace message_traits
 {
 
+
+
+// BOOLTRAITS {'IsFixedSize': True, 'IsMessage': True, 'HasHeader': False}
+// {'fs_msgs': ['/home/jack/KTHFS/sbg_test_ws/src/fs_msgs/msg'], 'actionlib_msgs': ['/opt/ros/melodic/share/actionlib_msgs/cmake/../msg'], 'std_msgs': ['/opt/ros/melodic/share/std_msgs/cmake/../msg']}
+
+// !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
 
 
 

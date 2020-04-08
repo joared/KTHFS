@@ -1,0 +1,1 @@
+/home/jack/KTHFS/sbg_test_ws/devel/.private/localization/share/localization/cmake/localizationConfig.cmake

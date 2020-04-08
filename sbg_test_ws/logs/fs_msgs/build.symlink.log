@@ -1,84 +1,337 @@
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ConesWithStats.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConesWithStats.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ClassifiedBoundingBox.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBox.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ConeStats.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeStats.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/PIDControlled.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/PIDControlled.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ControllerOutput.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ControllerOutput.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/SlamState.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/SlamState.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Wheelspeeds.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Wheelspeeds.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Cones.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cones.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Sbg_ekf_status.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Sbg_ekf_status.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Cone.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cone.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ClassifiedBoundingBoxes.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBoxes.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ConeWithStats.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeWithStats.h)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/pkgconfig/fs_msgs.pc, /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/fs_msgs.pc)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/__init__.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/__init__.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Wheelspeeds.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Wheelspeeds.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBoxes.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBoxes.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_SlamState.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_SlamState.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Cone.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cone.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ControllerOutput.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ControllerOutput.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ConeWithStats.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeWithStats.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_PIDControlled.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_PIDControlled.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ConesWithStats.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConesWithStats.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Cones.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cones.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ConeStats.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeStats.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/__init__.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/__init__.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Sbg_ekf_status.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Sbg_ekf_status.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBox.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBox.py)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgs-msg-paths.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-paths.cmake)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgs-msg-extras.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-extras.cmake)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgsConfig-version.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig-version.cmake)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgsConfig.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig.cmake)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/manifest.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/manifest.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBoxes.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBoxes.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConeWithStats.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeWithStats.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBox.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBox.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Cone.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cone.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConesWithStats.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConesWithStats.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/SlamState.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/SlamState.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConeStats.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeStats.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Sbg_ekf_status.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Sbg_ekf_status.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/PIDControlled.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/PIDControlled.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Wheelspeeds.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Wheelspeeds.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ControllerOutput.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ControllerOutput.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Cones.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cones.l)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Cones.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cones.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ControllerOutput.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ControllerOutput.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Wheelspeeds.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Wheelspeeds.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ConeStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeStats.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBoxes.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBoxes.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_SlamState.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_SlamState.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBox.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBox.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ControllerOutput.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ControllerOutput.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Cone.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cone.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Cones.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cones.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Sbg_ekf_status.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Sbg_ekf_status.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Wheelspeeds.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Wheelspeeds.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ConesWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConesWithStats.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ConeStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeStats.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ConesWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConesWithStats.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/fs_msgs-msg.asd, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/fs_msgs-msg.asd)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBoxes.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBoxes.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/SlamState.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/SlamState.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Sbg_ekf_status.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Sbg_ekf_status.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ConeWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeWithStats.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Cone.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cone.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ConeWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeWithStats.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_PIDControlled.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_PIDControlled.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBox.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBox.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/PIDControlled.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/PIDControlled.lisp)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/_index.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/_index.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/PIDControlled.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/PIDControlled.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Wheelspeeds.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Wheelspeeds.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ConeStats.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeStats.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/_index.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/_index.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Sbg_ekf_status.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Sbg_ekf_status.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBox.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBox.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Cones.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cones.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ConeWithStats.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeWithStats.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ConesWithStats.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConesWithStats.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBoxes.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBoxes.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/SlamState.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/SlamState.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ControllerOutput.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ControllerOutput.js)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Cone.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cone.js)
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/ControllerOutput.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConesWithStats.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/Sbg_ekf_status.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeStats.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/SlamState.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/PIDControlled.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBox.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cone.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cones.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBoxes.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/Wheelspeeds.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeWithStats.h
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/_index.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBox.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/_index.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/SlamState.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/PIDControlled.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Wheelspeeds.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeStats.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cone.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConesWithStats.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeWithStats.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBoxes.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Sbg_ekf_status.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ControllerOutput.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cones.js
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Sbg_ekf_status.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ControllerOutput.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/SlamState.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_PIDControlled.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeStats.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/fs_msgs-msg.asd
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Wheelspeeds.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cone.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConesWithStats.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBox.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Sbg_ekf_status.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeStats.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_SlamState.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cone.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cones.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBoxes.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/PIDControlled.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Wheelspeeds.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeWithStats.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ControllerOutput.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeWithStats.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cones.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBox.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConesWithStats.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBoxes.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package.lisp
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig-version.cmake
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig.cmake
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-extras.cmake
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-paths.cmake
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/manifest.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/PIDControlled.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Sbg_ekf_status.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cones.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConesWithStats.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeStats.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBox.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeWithStats.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ControllerOutput.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBoxes.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Wheelspeeds.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/SlamState.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cone.l
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/pkgconfig/fs_msgs.pc
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/__init__.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/__init__.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ControllerOutput.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cone.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Sbg_ekf_status.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Wheelspeeds.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBox.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConesWithStats.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeStats.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cones.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_SlamState.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_PIDControlled.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBoxes.py
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeWithStats.py
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/cmake.lock, /home/joar/KTHFS/sbg_test_ws/devel/./cmake.lock)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ConesWithStats.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConesWithStats.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ClassifiedBoundingBox.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBox.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ConeStats.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeStats.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/PIDControlled.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/PIDControlled.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ControllerOutput.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ControllerOutput.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/SlamState.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/SlamState.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Wheelspeeds.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Wheelspeeds.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Cones.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cones.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Sbg_ekf_status.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Sbg_ekf_status.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/Cone.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cone.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ClassifiedBoundingBoxes.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBoxes.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include/fs_msgs/ConeWithStats.h, /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeWithStats.h)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/pkgconfig/fs_msgs.pc, /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/fs_msgs.pc)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/__init__.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/__init__.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Wheelspeeds.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Wheelspeeds.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBoxes.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBoxes.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_SlamState.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_SlamState.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Cone.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cone.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ControllerOutput.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ControllerOutput.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ConeWithStats.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeWithStats.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_PIDControlled.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_PIDControlled.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ConesWithStats.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConesWithStats.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Cones.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cones.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ConeStats.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeStats.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/__init__.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/__init__.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_Sbg_ekf_status.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Sbg_ekf_status.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBox.py, /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBox.py)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgs-msg-paths.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-paths.cmake)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgs-msg-extras.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-extras.cmake)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgsConfig-version.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig-version.cmake)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/fs_msgs/cmake/fs_msgsConfig.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig.cmake)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/manifest.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/manifest.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBoxes.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBoxes.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConeWithStats.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeWithStats.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBox.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBox.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Cone.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cone.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConesWithStats.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConesWithStats.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/SlamState.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/SlamState.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ConeStats.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeStats.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Sbg_ekf_status.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Sbg_ekf_status.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/PIDControlled.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/PIDControlled.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Wheelspeeds.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Wheelspeeds.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/ControllerOutput.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ControllerOutput.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/roseus/ros/fs_msgs/msg/Cones.l, /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cones.l)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Cones.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cones.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ControllerOutput.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ControllerOutput.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Wheelspeeds.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Wheelspeeds.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ConeStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeStats.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBoxes.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBoxes.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_SlamState.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_SlamState.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBox.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBox.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ControllerOutput.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ControllerOutput.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Cone.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cone.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Cones.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cones.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_Sbg_ekf_status.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Sbg_ekf_status.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Wheelspeeds.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Wheelspeeds.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ConesWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConesWithStats.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ConeStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeStats.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ConesWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConesWithStats.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/fs_msgs-msg.asd, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/fs_msgs-msg.asd)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBoxes.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBoxes.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/SlamState.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/SlamState.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Sbg_ekf_status.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Sbg_ekf_status.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_ConeWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeWithStats.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/Cone.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cone.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ConeWithStats.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeWithStats.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/_package_PIDControlled.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_PIDControlled.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBox.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBox.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/common-lisp/ros/fs_msgs/msg/PIDControlled.lisp, /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/PIDControlled.lisp)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/_index.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/_index.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/PIDControlled.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/PIDControlled.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Wheelspeeds.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Wheelspeeds.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ConeStats.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeStats.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/_index.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/_index.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Sbg_ekf_status.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Sbg_ekf_status.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBox.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBox.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Cones.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cones.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ConeWithStats.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeWithStats.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ConesWithStats.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConesWithStats.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBoxes.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBoxes.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/SlamState.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/SlamState.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/ControllerOutput.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ControllerOutput.js)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/share/gennodejs/ros/fs_msgs/msg/Cone.js, /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cone.js)
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConesWithStats.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBox.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeStats.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/PIDControlled.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ControllerOutput.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/SlamState.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Wheelspeeds.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cones.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Sbg_ekf_status.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/Cone.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ClassifiedBoundingBoxes.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/include/fs_msgs/ConeWithStats.h
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/fs_msgs.pc
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/__init__.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Wheelspeeds.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBoxes.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_SlamState.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cone.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ControllerOutput.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeWithStats.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_PIDControlled.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConesWithStats.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Cones.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ConeStats.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/__init__.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_Sbg_ekf_status.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/python2.7/dist-packages/fs_msgs/msg/_ClassifiedBoundingBox.py
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-paths.cmake
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgs-msg-extras.cmake
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig-version.cmake
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/fs_msgs/cmake/fs_msgsConfig.cmake
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/manifest.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBoxes.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeWithStats.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ClassifiedBoundingBox.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cone.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConesWithStats.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/SlamState.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ConeStats.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Sbg_ekf_status.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/PIDControlled.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Wheelspeeds.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/ControllerOutput.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/roseus/ros/fs_msgs/msg/Cones.l
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cones.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ControllerOutput.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Wheelspeeds.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeStats.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBoxes.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_SlamState.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ClassifiedBoundingBox.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ControllerOutput.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Cone.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cones.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_Sbg_ekf_status.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Wheelspeeds.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConesWithStats.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeStats.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConesWithStats.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/fs_msgs-msg.asd
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBoxes.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/SlamState.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Sbg_ekf_status.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_ConeWithStats.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/Cone.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ConeWithStats.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/_package_PIDControlled.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/ClassifiedBoundingBox.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/common-lisp/ros/fs_msgs/msg/PIDControlled.lisp
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/_index.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/PIDControlled.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Wheelspeeds.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeStats.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/_index.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Sbg_ekf_status.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBox.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cones.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConeWithStats.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ConesWithStats.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ClassifiedBoundingBoxes.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/SlamState.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/ControllerOutput.js
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/gennodejs/ros/fs_msgs/msg/Cone.js
+Already unlinked: {}

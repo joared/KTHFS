@@ -1,3 +1,13 @@
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/lib/pkgconfig/sbg_ros_testing.pc, /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/sbg_ros_testing.pc)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake)
-Linked: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/share/sbg_ros_testing/cmake/sbg_ros_testingConfig.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig.cmake)
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig.cmake
+Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/pkgconfig/sbg_ros_testing.pc
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/cmake.lock, /home/joar/KTHFS/sbg_test_ws/devel/./cmake.lock)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/lib/pkgconfig/sbg_ros_testing.pc, /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/sbg_ros_testing.pc)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake)
+Cleaning: (/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/share/sbg_ros_testing/cmake/sbg_ros_testingConfig.cmake, /home/joar/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig.cmake)
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/sbg_ros_testing.pc
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake
+Already unlinked: {}
+Unlinking: /home/joar/KTHFS/sbg_test_ws/devel/share/sbg_ros_testing/cmake/sbg_ros_testingConfig.cmake
+Already unlinked: {}
