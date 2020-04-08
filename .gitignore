@@ -1,4 +1,4 @@
 *.pyc
-sbg_test_ws/devel
-sbg_test_ws/logs
-sbg_test_ws/build
+sbg_test_ws/devel/*
+sbg_test_ws/logs/*
+sbg_test_ws/build/*
