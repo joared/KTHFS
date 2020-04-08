@@ -11,12 +11,8 @@ class ImuReader(object):
 	Create sub-classes that inherit this class. The sub-class should define:
 
 	read_ascii(self, file_path, delimiter): Reads the lines in the ASCII file and 
-										    puts the data in the .data_raw dictionary. 
+										    puts the data in the .data_ascii dictionary. 
 										    Should return a list of ignored lines for debugging.
-
-	process_data(): Converting the data in the .data_raw dictionary to correct format and puts it in the
-					.data_processed dictionary (e.g. UTC h/m/s -> UTC s). 
-					Format is described by the DATA_PROCESSED_KEYS below.
 
 	General:
 
@@ -33,7 +29,7 @@ class ImuReader(object):
 	This aligned time can be retrieved by using the align_time function in the data_alignment module.
 	"""
 
-	# Pre-defined data keys that will be tried to be set from the raw data during a process_data() call
+	# Pre-defined data keys that will be tried to be set from the raw data in a read_ascii() call
 	# TODO: not sure if all of these units are correct
 	DATA_PROCESSED_KEYS = ["time", 	# UTC time in seconds
 						   "long", 	# degrees
@@ -60,10 +56,9 @@ class ImuReader(object):
 
 	def __init__(self, files_dir=""):
 		self.files_dir = files_dir
-		self.data_raw_keys = [] # data types in order presented in ascii file
-		self.data_raw = {} 		# ascii file data
+		self.data_ascii_keys = [] # data types in order presented in ascii file
+		self.data_ascii = {} 		# ascii file data
 		self.data_processed = self.DATA_PROCESSED_DEFAULT.copy() # data processed from ascii file
-		
 
 	def __getattr__(self, attr):
 		"""
@@ -89,19 +84,21 @@ class ImuReader(object):
 			
 	
 	def reset(self):
-		self.data_raw_keys = []
-		self.data_raw = {}
+		self.data_ascii_keys = []
+		self.data_ascii = {}
 		self.data_processed = self.DATA_PROCESSED_DEFAULT.copy()
 		
 
 	def set_read_dir(self, files_dir):
 		"""
-		Set the directory path which will be inserted before relative file paths when calling the read() method
+		Set the directory path which will be inserted before relative file paths when calling the read() method.
+		This is more of a convenience functionality to be able to read multiple files in a dictionary by just passing the relative filename as 
+		ans argument to file_path in read(). 
 		"""
 		self.files_dir = files_dir
 		
 		
-	def read(self, file_path, delimiter=None, debug=False):
+	def read(self, file_path, delimiter=None, save=False, debug=False):
 		self.reset()
 		
 		if not os.path.isabs(file_path):
@@ -110,25 +107,35 @@ class ImuReader(object):
 		# Read processed data file
 		ext = os.path.splitext(file_path)[1]
 		if ext == ".processed":
-			return self.read_processed_data(file_path)
-
-		# Read ascii data file
-		# Each sub-class needs to define a read_ascii method which takes 
-		# a file path and a delimiter as paramters and returns a list 
-		# with all lines that has been ignored 
-		ignored_lines = self.read_ascii(file_path, delimiter)
-					
+			self.read_processed_data(file_path)
+			ignored_lines = []
+		else:
+			# Read ascii data file
+			# Each sub-class needs to define a read_ascii method which takes 
+			# a file path and a delimiter as paramters and returns a list 
+			# with all lines that has been ignored
+			try:
+				ignored_lines = self.read_ascii(file_path, delimiter) 
+			except KeyError as e:
+				raise KeyError("A key error occured during reading, is the delimiter set correctly? (check the printed data_ascii_key if they look reasonable)") 
+				
+		if save: self.save_processed_data(file_path, delimiter)
 		if debug: self.log_ignored_data(ignored_lines)
-		return self.data_raw.copy()
+		return self.data_ascii.copy()
+
+
+	def read_ascii(self, file_path, delimiter):
+		raise Exception("The base class '{}' can't read ASCII files. Instanciate the proper sub-class to read ASCII files.")
 
 
 	def read_data_type_line(self, line, delimiter=None):
-		print("Reading data types...")
+		print("Reading data types:")
 		line_ls = [s.strip() for s in line.split(delimiter)]
 		for d in line_ls:
-			self.data_raw_keys.append(d)
-			self.data_raw[d] = []
-		print(" all data types registered!")
+			self.data_ascii_keys.append(d)
+			self.data_ascii[d] = []
+			print("'" + d + "'")
+		print("Data types registered!")
 
 
 	def read_data_line(self, line, delimiter=None):
@@ -141,8 +148,8 @@ class ImuReader(object):
 				val = s
 			values.append(val)
 			
-		for k, v in zip(self.data_raw_keys, values):
-			self.data_raw[k].append(v)
+		for k, v in zip(self.data_ascii_keys, values):
+			self.data_ascii[k].append(v)
 
 
 	def log_ignored_data(self, ignored_lines):
@@ -150,11 +157,6 @@ class ImuReader(object):
 		with open(name, "w") as f:
 			f.write("Ignored lines\n")
 			f.writelines(ignored_lines)
-
-
-	def process_data(self, data=None):
-		raise Exception("This class should not be instanciated or a process_data method has not been defined in the sub-class")
-
 
 	def read_processed_data(self, file_path, delimiter=None):
 		self.reset()
@@ -180,8 +182,12 @@ class ImuReader(object):
 		print("Read processed data from '{}'".format(file_path))
 
 
-	def save_processed_data(self, file_path, delimiter=None):
+	def save(self, file_path, delimiter=None):
+		"""
+		Saves the data in self.data_processed in file defined by file_path (replaces given extension with .processed)
+		"""
 		if delimiter is None: delimiter = "\t"
+		#path, ext = os.path.splitext(file_path)
 		file_path = os.path.splitext(file_path)[0] + ".processed"
 		file_path = os.path.join(self.files_dir, file_path)
 		with open(file_path, "w") as f:
@@ -256,14 +262,13 @@ class SBGReader(ImuReader):
 					ignored_lines.append(line)
 				else:
 					self.read_data_line(line, delimiter)
-		print("Read ASCII recording from '{}'".format(file_path))
-		self._convert_data(self.data_raw)
+		print("Read ASCII data from '{}'".format(file_path))
+		self._process_data(self.data_ascii)
 		return ignored_lines
 
 
 	def _process_data(self, data):
 		data = data.copy()
-		print("Processing raw data...")
 		self.data_processed["time"] = self._utc_to_sec(data)
 		self.data_processed["long"] = data["Longitude"]
 		self.data_processed["lat"] = data["Latitude"]
@@ -278,7 +283,7 @@ class SBGReader(ImuReader):
 		self.data_processed["gyr_x"] = data["Gyroscope X"]
 		self.data_processed["gyr_y"] = data["Gyroscope Y"]
 		self.data_processed["gyr_z"] = data["Gyroscope Z"]
-		print(" done!")
+		print("Processed ASCII data!")
 
 
 	def _utc_to_sec(self, data):
