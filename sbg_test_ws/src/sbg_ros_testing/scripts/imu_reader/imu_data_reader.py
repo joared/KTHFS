@@ -10,26 +10,26 @@ class ImuReader(object):
 	This class should not be instanciated. 
 	Create sub-classes that inherit this class. The sub-class should define:
 
-	read_data(self, file_path, delimiter): Reads the lines in the ASCII file and 
-										   puts the data in the .data_raw dictionary. 
-										   Should return a list of ignored lines for debugging.
+	read_ascii(self, file_path, delimiter): Reads the lines in the ASCII file and 
+										    puts the data in the .data_raw dictionary. 
+										    Should return a list of ignored lines for debugging.
 
 	process_data(): Converting the data in the .data_raw dictionary to correct format and puts it in the
-					.data_processed dictionary (e.g. radians->degrees and UTC h/m/s -> UTC s). 
+					.data_processed dictionary (e.g. UTC h/m/s -> UTC s). 
 					Format is described by the DATA_PROCESSED_KEYS below.
 
 	General:
 
-	Only difference between read and read_data is that ignored lines are being logged in a file in read while
-	read_data is actually reading the 
+	Only difference between read and read_ascii is that ignored lines are being logged in a file in read while
+	read_ascii is actually reading the 
 
-	The methods 'read_data_type_line' and 'read_data_line' are helping methods that can be used in read_data.
+	The methods 'read_data_type_line' and 'read_data_line' are helping methods that can be used in read_ascii.
 	For example the ASCII formats from SBG, Xsens and VBOX are similar and data can be read in a similar way
 	using these helping methods.
 
 	Using the align_data method, aligns the data in data_processed to a specific time alignment and also sets the
 	'time' key in data_processed to that time. This can be useful when multiple IMUs have different time alignments
-	and a omparision wants to be made between them. Linear interpolation is used to adjust the values.
+	and a comparision wants to be made between them. Linear interpolation is used to adjust the values.
 	This aligned time can be retrieved by using the align_time function in the data_alignment module.
 	"""
 
@@ -60,9 +60,9 @@ class ImuReader(object):
 
 	def __init__(self, files_dir=""):
 		self.files_dir = files_dir
-		self.data_raw_keys = [] # data types in order presented in file
-		self.data_raw = {} 		# data
-		self.data_processed = self.DATA_PROCESSED_DEFAULT.copy() 
+		self.data_raw_keys = [] # data types in order presented in ascii file
+		self.data_raw = {} 		# ascii file data
+		self.data_processed = self.DATA_PROCESSED_DEFAULT.copy() # data processed from ascii file
 		
 
 	def __getattr__(self, attr):
@@ -100,30 +100,26 @@ class ImuReader(object):
 		"""
 		self.files_dir = files_dir
 		
+		
 	def read(self, file_path, delimiter=None, debug=False):
 		self.reset()
+		
 		if not os.path.isabs(file_path):
 			file_path = os.path.join(self.files_dir, file_path)
-		ignored_lines = []
 
-		# Each sub-class needs to define a read_data method which takes 
+		# Read processed data file
+		ext = os.path.splitext(file_path)[1]
+		if ext == ".processed":
+			return self.read_processed_data(file_path)
+
+		# Read ascii data file
+		# Each sub-class needs to define a read_ascii method which takes 
 		# a file path and a delimiter as paramters and returns a list 
 		# with all lines that has been ignored 
-		ignored_lines = self.read_data(file_path, delimiter)
+		ignored_lines = self.read_ascii(file_path, delimiter)
 					
 		if debug: self.log_ignored_data(ignored_lines)
 		return self.data_raw.copy()
-
-
-	def read_data(self, file_path, delimiter):
-		raise Exception("This class should not be instanciated or a read_data method has not been defined in the sub-class")
-
-
-	def log_ignored_data(self, ignored_lines):
-		name = str(self.NAME) + "_ignored_data.txt"
-		with open(name, "w") as f:
-			f.write("Ignored lines\n")
-			f.writelines(ignored_lines)
 
 
 	def read_data_type_line(self, line, delimiter=None):
@@ -149,28 +145,22 @@ class ImuReader(object):
 			self.data_raw[k].append(v)
 
 
+	def log_ignored_data(self, ignored_lines):
+		name = str(self.NAME) + "_ignored_data.txt"
+		with open(name, "w") as f:
+			f.write("Ignored lines\n")
+			f.writelines(ignored_lines)
+
+
 	def process_data(self, data=None):
 		raise Exception("This class should not be instanciated or a process_data method has not been defined in the sub-class")
-		
-
-	def read_and_process(self, file_path, delimiter=None, debug=False):
-		data = self.read(file_path, delimiter, debug)
-		self.process_data()
-		return data.copy()
-		
-
-	def read_process_save(self, file_path, delimiter_read=None, delimiter_save=None, debug=False):
-		self.read(file_path, delimiter=delimiter_read, debug=debug)
-		self.process_data()
-		self.save_processed_data(file_path, delimiter_save)
 
 
 	def read_processed_data(self, file_path, delimiter=None):
 		self.reset()
+		assert os.path.splitext(file_path)[1] == ".processed", "Extension has to be '.processed'"
 		if delimiter is None: delimiter = "\t"
-		#file_path = os.path.join(self.files_dir, file_path + ".processed")
-		file_path = os.path.splitext(file_path)[0] + ".processed"
-		file_path = os.path.join(self.files_dir, file_path)
+
 		with open(file_path, "r") as f:
 			read_keys = True
 			for line in f:
@@ -212,12 +202,14 @@ class ImuReader(object):
 	
 
 	def align_data(self, attrs, aligned_time):
+		# TODO: reset all values that are not aligned?
 		for attr in attrs:
+			assert attr in self.data_processed, "'{}' is not a valid attribute".format(attr)
 			aligned = []
 			for t in aligned_time:
+
 				# Find the previous value
-				
-				prev_index = closest_index(self.time, t)
+				prev_index = closest_index(self.data_processed["time"], t)
 				prev_time = self.data_processed["time"][prev_index]
 				prev_val = self.data_processed[attr][prev_index]
 	
@@ -239,8 +231,10 @@ class ImuReader(object):
 class VBOXReader(ImuReader):
 	NAME = "VBOX"
 	
+
 class XsensReader(ImuReader):
 	NAME = "Xsens"
+
 		
 class SBGReader(ImuReader):
 	N = 0 # Number of times this class has been instanciated ('_N' will be appended to self.name)
@@ -252,28 +246,7 @@ class SBGReader(ImuReader):
 		self.__class__.N += 1 # incerement N to have unique names for multiple instances 
 
 
-	def process_data(self, data=None):
-		if data is None: 
-			data = self.data_raw.copy()
-		print("Processing raw data...")
-		self.time = self._utc_to_sec(data)
-		self.long = data["Longitude"]
-		self.lat = data["Latitude"]
-		self.vel_x = data["X Velocity"]
-		self.vel_y = data["Y Velocity"]
-		self.roll = list(np.array(data["Roll"])/180*np.pi)
-		self.pitch = list(np.array(data["Pitch"])/180*np.pi)
-		self.yaw = list(np.array(data["Yaw"])/180*np.pi)
-		self.acc_x = data["Accelerometer X"]
-		self.acc_y = data["Accelerometer Y"]
-		self.acc_z = data["Accelerometer Z"]
-		self.gyr_x = data["Gyroscope X"]
-		self.gyr_y = data["Gyroscope Y"]
-		self.gyr_z = data["Gyroscope Z"]
-		print(" done!")
-
-
-	def read_data(self, file_path, delimiter):
+	def read_ascii(self, file_path, delimiter):
 		ignored_lines = []
 		with open(file_path, "r") as f:
 			for i, line in enumerate(f):
@@ -283,11 +256,32 @@ class SBGReader(ImuReader):
 					ignored_lines.append(line)
 				else:
 					self.read_data_line(line, delimiter)
+		print("Read ASCII recording from '{}'".format(file_path))
+		self._convert_data(self.data_raw)
 		return ignored_lines
 
 
+	def _process_data(self, data):
+		data = data.copy()
+		print("Processing raw data...")
+		self.data_processed["time"] = self._utc_to_sec(data)
+		self.data_processed["long"] = data["Longitude"]
+		self.data_processed["lat"] = data["Latitude"]
+		self.data_processed["vel_x"] = data["X Velocity"]
+		self.data_processed["vel_y"] = data["Y Velocity"]
+		self.data_processed["roll"] = list(np.array(data["Roll"])/180*np.pi)
+		self.data_processed["pitch"] = list(np.array(data["Pitch"])/180*np.pi)
+		self.data_processed["yaw"] = list(np.array(data["Yaw"])/180*np.pi)
+		self.data_processed["acc_x"] = data["Accelerometer X"]
+		self.data_processed["acc_y"] = data["Accelerometer Y"]
+		self.data_processed["acc_z"] = data["Accelerometer Z"]
+		self.data_processed["gyr_x"] = data["Gyroscope X"]
+		self.data_processed["gyr_y"] = data["Gyroscope Y"]
+		self.data_processed["gyr_z"] = data["Gyroscope Z"]
+		print(" done!")
+
+
 	def _utc_to_sec(self, data):
-		#print("Converting UTC Time to sec")
 		sec_values = [] # Init new list
 		for t in data["UTC Time"]:
 			hour_min_sec = t.split(":")

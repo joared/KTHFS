@@ -1,0 +1,51 @@
+<launch>
+  <param name ="/use_sim_time" value="true" />
+  <arg name="rviz" value="false" />
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find fastslam2)/rviz/slam.rviz" if="$(arg rviz)" />
+
+  <node pkg="rosbag" type="play" name="rosbag_play" args="--clock $(find fastslam2)/bags/noised_filtered.bag -u 110" required="true" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc0" args="0 0 0.25 0 0 0 1.0 base_footprint base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc1" args="1.580 0 -0.1 0 0.017 0 base_link velodyne_base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc2" args="0 0 0.038 0 0 0 1.0 velodyne_base_link velodyne" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc3" args="-0.8 0 0 0 0 0 1.0 base_footprint rear_axle" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc4" args="0 0 0.4 0 0 0 1.0 base_link gps_base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc5" args="0 0 0 0 0 0 1.0 base_link imu_base_link" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="static_tf_bc6" args="-15.84 14.4 0 0 0 0 1.0 map world" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1.0 map odom" />
+
+  <rosparam file="$(find slam_prefiltering)/config/robot_localization.yaml" command="load"/>
+
+  <group ns="slam">
+    <node name="ukf_odom" type="ukf_localization_node" pkg="robot_localization">
+      <remap from="odometry/filtered" to="/slam/odom_filtered" />
+    </node>
+
+    <node name="tf_publisher" type="intermediary_tf_publisher.py" pkg="slam_utils">
+      <param name="intermediary_frame" value="base_footprint" />
+      <remap from="odom" to="/slam/odom_filtered" />
+    </node>
+
+    <!-- <node name="ukf_map" type="ukf_localization_node" pkg="robot_localization">
+    <remap from="odometry/filtered" to="/slam/odom_final"/>
+  </node> -->
+
+    <!-- <node name="gps_transformer" type="gps_transformer.py" pkg="slam_prefiltering" output="screen">
+      <remap from="pose" to="/gps/pose" />
+      <remap from="pose_transformed" to="/gps/pose_transformed" />
+    </node> -->
+
+  </group>
+
+  <node name="diff_odom" type="diff_odom_publisher.py" pkg="slam_utils" output="screen">
+    <param name="publish_frequency" value="10.0" />
+    <param name="frame_id" value="" />
+    <param name="child_frame_id" value="" />
+    <param name="display_diff" value="false" />
+    <param name="display_RMSE" value="false" />
+
+    <remap from="odom1" to="/odom/ground_truth" />
+    <remap from="odom2" to="/slam/odom_filtered" />
+  </node>
+
+</launch>

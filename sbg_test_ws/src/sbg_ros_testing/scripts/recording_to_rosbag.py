@@ -14,7 +14,7 @@ from nav_msgs.msg import Odometry
 class RecordingToBag:
 	def __init__(self, imu):
 		self.imu = imu
-		assert self.imu.time, "IMU data 'time' is needed to play the data"
+		assert self.imu.time, "IMU data 'time' is needed to save the recording as a rosbag"
 		#self.prefix = self.imu.name
 		#self.imu_pub = rospy.Publisher("/imu", Imu, queue_size=1)
 
@@ -74,7 +74,10 @@ if __name__ == '__main__':
 	parser.add_argument("-d", '--delimiter', default="", choices=["tab", "space", ""], type=str, help="Delimiter used in the recording.")
 	parser.add_argument("-s", "--save", action="store_true", help="Save .processed file")
 	args = parser.parse_args()
+
 	if args.delimiter == "tab": args.delimiter = "\t"
+	if args.delimiter == "space": args.delimiter = " "
+	if args.delimiter == "": args.delimiter = None
 
 	try:
 		reader_idx = reader_names.index(args.reader)
@@ -83,7 +86,7 @@ if __name__ == '__main__':
 	else:
 		imu_reader = reader_classes[reader_idx]()
 
-	imu_reader.read_and_process(args.file, delimiter=args.delimiter)
+	imu_reader.read(args.file, delimiter=args.delimiter)
 	if args.save: imu_reader.save_processed_data(args.file)
 	bagger = RecordingToBag(imu_reader)
 	bagger.create_rosbag(args.file)
