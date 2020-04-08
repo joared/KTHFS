@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-import argparse
+
 import os
 import stat
 import sys
@@ -12,18 +12,18 @@ try:
     from catkin.environment_cache import generate_environment_script
 except ImportError:
     # search for catkin package in all workspaces and prepend to path
-    for workspace in "/home/jack/KTHFS/sbg_test_ws/devel;/home/jack/kth_fs_ws/devel;/opt/ros/melodic".split(';'):
+    for workspace in '/home/joar/KTHFS/sbg_test_ws/devel;/home/joar/dd2419_ws/devel;/opt/ros/melodic'.split(';'):
         python_path = os.path.join(workspace, 'lib/python2.7/dist-packages')
         if os.path.isdir(os.path.join(python_path, 'catkin')):
             sys.path.insert(0, python_path)
             break
     from catkin.environment_cache import generate_environment_script
 
-code = generate_environment_script('/home/jack/KTHFS/sbg_test_ws/devel/.private/fs_msgs/env.sh')
+code = generate_environment_script('/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/env.sh')
 
-output_filename = '/home/jack/KTHFS/sbg_test_ws/build/fs_msgs/catkin_generated/setup_cached.sh'
+output_filename = '/home/joar/KTHFS/sbg_test_ws/build/fs_msgs/catkin_generated/setup_cached.sh'
 with open(output_filename, 'w') as f:
-    #print('Generate script for cached setup "%s"' % output_filename)
+    # print('Generate script for cached setup "%s"' % output_filename)
     f.write('\n'.join(code))
 
 mode = os.stat(output_filename).st_mode

@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "sbg_ros_testing"
-PROJECT_SPACE_DIR = "/home/jack/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing"
+PROJECT_SPACE_DIR = "/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing"
 PROJECT_VERSION = "0.0.0"

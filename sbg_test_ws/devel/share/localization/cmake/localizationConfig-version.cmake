@@ -1,1 +1,1 @@
-/home/jack/KTHFS/sbg_test_ws/devel/.private/localization/share/localization/cmake/localizationConfig-version.cmake
+/home/joar/KTHFS/sbg_test_ws/devel/.private/localization/share/localization/cmake/localizationConfig-version.cmake

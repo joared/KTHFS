@@ -67,14 +67,14 @@ set(fs_msgs_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(fs_msgs_SOURCE_PREFIX /home/jack/KTHFS/sbg_test_ws/src/fs_msgs)
-  set(fs_msgs_DEVEL_PREFIX /home/jack/KTHFS/sbg_test_ws/devel/.private/fs_msgs)
+  set(fs_msgs_SOURCE_PREFIX /home/joar/KTHFS/sbg_test_ws/src/fs_msgs)
+  set(fs_msgs_DEVEL_PREFIX /home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs)
   set(fs_msgs_INSTALL_PREFIX "")
   set(fs_msgs_PREFIX ${fs_msgs_DEVEL_PREFIX})
 else()
   set(fs_msgs_SOURCE_PREFIX "")
   set(fs_msgs_DEVEL_PREFIX "")
-  set(fs_msgs_INSTALL_PREFIX /home/jack/KTHFS/sbg_test_ws/install)
+  set(fs_msgs_INSTALL_PREFIX /home/joar/KTHFS/sbg_test_ws/install)
   set(fs_msgs_PREFIX ${fs_msgs_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(fs_msgs_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/jack/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include " STREQUAL " ")
+if(NOT "/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include " STREQUAL " ")
   set(fs_msgs_INCLUDE_DIRS "")
-  set(_include_dirs "/home/jack/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include")
+  set(_include_dirs "/home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/jack/KTHFS/sbg_test_ws/devel/.private/fs_msgs/include " STREQUAL "
         message(FATAL_ERROR "Project 'fs_msgs' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'fs_msgs' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/jack/KTHFS/sbg_test_ws/src/fs_msgs/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'fs_msgs' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/joar/KTHFS/sbg_test_ws/src/fs_msgs/${idir}'.  ${_report}")
     endif()
     _list_append_unique(fs_msgs_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/jack/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib;/home/jack/KTHFS/sbg_test_ws/devel/lib;/home/jack/kth_fs_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/joar/KTHFS/sbg_test_ws/devel/.private/fs_msgs/lib;/home/joar/KTHFS/sbg_test_ws/devel/lib;/home/joar/dd2419_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

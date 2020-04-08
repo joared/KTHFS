@@ -1,1 +1,1 @@
-/home/jack/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake
+/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing/share/sbg_ros_testing/cmake/sbg_ros_testingConfig-version.cmake

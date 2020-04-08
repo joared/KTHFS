@@ -1,4 +1,4 @@
-prefix=/home/jack/KTHFS/sbg_test_ws/devel/.private/localization
+prefix=/home/joar/KTHFS/sbg_test_ws/devel/.private/localization
 
 Name: localization
 Description: Description of localization

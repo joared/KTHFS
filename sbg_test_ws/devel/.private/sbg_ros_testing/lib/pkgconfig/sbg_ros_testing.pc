@@ -1,4 +1,4 @@
-prefix=/home/jack/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing
+prefix=/home/joar/KTHFS/sbg_test_ws/devel/.private/sbg_ros_testing
 
 Name: sbg_ros_testing
 Description: Description of sbg_ros_testing

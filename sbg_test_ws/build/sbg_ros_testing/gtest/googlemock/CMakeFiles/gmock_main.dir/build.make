@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jack/KTHFS/sbg_test_ws/src/sbg_ros_testing
+CMAKE_SOURCE_DIR = /home/joar/KTHFS/sbg_test_ws/src/sbg_ros_testing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing
+CMAKE_BINARY_DIR = /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing
 
 # Include any dependencies generated for this target.
 include gtest/googlemock/CMakeFiles/gmock_main.dir/depend.make
@@ -59,16 +59,16 @@ include gtest/googlemock/CMakeFiles/gmock_main.dir/flags.make
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o: gtest/googlemock/CMakeFiles/gmock_main.dir/flags.make
 gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o: /usr/src/googletest/googletest/src/gtest-all.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o"
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o -c /usr/src/googletest/googletest/src/gtest-all.cc
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.i"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/googletest/googletest/src/gtest-all.cc > CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.i
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/googletest/googletest/src/gtest-all.cc > CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.i
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.s"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/googletest/googletest/src/gtest-all.cc -o CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.s
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/googletest/googletest/src/gtest-all.cc -o CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.s
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o.requires:
 
@@ -83,16 +83,16 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o.prov
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o: gtest/googlemock/CMakeFiles/gmock_main.dir/flags.make
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o: /usr/src/googletest/googlemock/src/gmock-all.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/src/gmock-all.cc.o -c /usr/src/googletest/googlemock/src/gmock-all.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o"
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/src/gmock-all.cc.o -c /usr/src/googletest/googlemock/src/gmock-all.cc
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gmock_main.dir/src/gmock-all.cc.i"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/googletest/googlemock/src/gmock-all.cc > CMakeFiles/gmock_main.dir/src/gmock-all.cc.i
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/googletest/googlemock/src/gmock-all.cc > CMakeFiles/gmock_main.dir/src/gmock-all.cc.i
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gmock_main.dir/src/gmock-all.cc.s"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/googletest/googlemock/src/gmock-all.cc -o CMakeFiles/gmock_main.dir/src/gmock-all.cc.s
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/googletest/googlemock/src/gmock-all.cc -o CMakeFiles/gmock_main.dir/src/gmock-all.cc.s
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o.requires:
 
@@ -107,16 +107,16 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o.provides.build: gt
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: gtest/googlemock/CMakeFiles/gmock_main.dir/flags.make
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: /usr/src/googletest/googlemock/src/gmock_main.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /usr/src/googletest/googlemock/src/gmock_main.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /usr/src/googletest/googlemock/src/gmock_main.cc
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gmock_main.dir/src/gmock_main.cc.i"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/googletest/googlemock/src/gmock_main.cc > CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/src/googletest/googlemock/src/gmock_main.cc > CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gmock_main.dir/src/gmock_main.cc.s"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/googletest/googlemock/src/gmock_main.cc -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/src/googletest/googlemock/src/gmock_main.cc -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o.requires:
 
@@ -143,8 +143,8 @@ gtest/googlemock/libgmock_main.so: gtest/googlemock/CMakeFiles/gmock_main.dir/sr
 gtest/googlemock/libgmock_main.so: gtest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
 gtest/googlemock/libgmock_main.so: gtest/googlemock/CMakeFiles/gmock_main.dir/build.make
 gtest/googlemock/libgmock_main.so: gtest/googlemock/CMakeFiles/gmock_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library libgmock_main.so"
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gmock_main.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library libgmock_main.so"
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gmock_main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 gtest/googlemock/CMakeFiles/gmock_main.dir/build: gtest/googlemock/libgmock_main.so
@@ -158,10 +158,10 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/requires: gtest/googlemock/CMakeFiles
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/requires
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/clean:
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock_main.dir/cmake_clean.cmake
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock_main.dir/cmake_clean.cmake
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/clean
 
 gtest/googlemock/CMakeFiles/gmock_main.dir/depend:
-	cd /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jack/KTHFS/sbg_test_ws/src/sbg_ros_testing /usr/src/googletest/googlemock /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock /home/jack/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/joar/KTHFS/sbg_test_ws/src/sbg_ros_testing /usr/src/googletest/googlemock /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock /home/joar/KTHFS/sbg_test_ws/build/sbg_ros_testing/gtest/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/depend
 

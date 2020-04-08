@@ -1,3 +1,13 @@
-Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig.cmake
-Symlinking /home/jack/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig-version.cmake
-Symlinking /home/jack/KTHFS/sbg_test_ws/devel/lib/pkgconfig/localization.pc
+Symlinking /home/joar/KTHFS/sbg_test_ws/devel/lib/pkgconfig/localization.pc
+Symlinking /home/joar/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig-version.cmake
+Symlinking /home/joar/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig.cmake
+Cleaning: (/home/jack/KTHFS/sbg_test_ws/devel/.private/localization/cmake.lock, /home/jack/KTHFS/sbg_test_ws/devel/./cmake.lock)
+Cleaning: (/home/jack/KTHFS/sbg_test_ws/devel/.private/localization/share/localization/cmake/localizationConfig.cmake, /home/jack/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig.cmake)
+Cleaning: (/home/jack/KTHFS/sbg_test_ws/devel/.private/localization/share/localization/cmake/localizationConfig-version.cmake, /home/jack/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig-version.cmake)
+Cleaning: (/home/jack/KTHFS/sbg_test_ws/devel/.private/localization/lib/pkgconfig/localization.pc, /home/jack/KTHFS/sbg_test_ws/devel/lib/pkgconfig/localization.pc)
+Unlinking: /home/jack/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig.cmake
+Already unlinked: {}
+Unlinking: /home/jack/KTHFS/sbg_test_ws/devel/share/localization/cmake/localizationConfig-version.cmake
+Already unlinked: {}
+Unlinking: /home/jack/KTHFS/sbg_test_ws/devel/lib/pkgconfig/localization.pc
+Already unlinked: {}

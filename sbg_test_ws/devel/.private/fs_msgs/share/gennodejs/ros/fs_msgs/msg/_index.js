@@ -1,30 +1,30 @@
 
 "use strict";
 
-let Wheelspeeds = require('./Wheelspeeds.js');
-let ClassifiedBoundingBox = require('./ClassifiedBoundingBox.js');
-let ConesWithStats = require('./ConesWithStats.js');
-let Cone = require('./Cone.js');
-let PIDControlled = require('./PIDControlled.js');
-let Sbg_ekf_status = require('./Sbg_ekf_status.js');
 let ConeWithStats = require('./ConeWithStats.js');
-let ControllerOutput = require('./ControllerOutput.js');
-let ConeStats = require('./ConeStats.js');
+let Wheelspeeds = require('./Wheelspeeds.js');
+let Cone = require('./Cone.js');
+let Sbg_ekf_status = require('./Sbg_ekf_status.js');
 let Cones = require('./Cones.js');
-let SlamState = require('./SlamState.js');
+let PIDControlled = require('./PIDControlled.js');
 let ClassifiedBoundingBoxes = require('./ClassifiedBoundingBoxes.js');
+let ConeStats = require('./ConeStats.js');
+let SlamState = require('./SlamState.js');
+let ConesWithStats = require('./ConesWithStats.js');
+let ControllerOutput = require('./ControllerOutput.js');
+let ClassifiedBoundingBox = require('./ClassifiedBoundingBox.js');
 
 module.exports = {
-  Wheelspeeds: Wheelspeeds,
-  ClassifiedBoundingBox: ClassifiedBoundingBox,
-  ConesWithStats: ConesWithStats,
-  Cone: Cone,
-  PIDControlled: PIDControlled,
-  Sbg_ekf_status: Sbg_ekf_status,
   ConeWithStats: ConeWithStats,
-  ControllerOutput: ControllerOutput,
-  ConeStats: ConeStats,
+  Wheelspeeds: Wheelspeeds,
+  Cone: Cone,
+  Sbg_ekf_status: Sbg_ekf_status,
   Cones: Cones,
-  SlamState: SlamState,
+  PIDControlled: PIDControlled,
   ClassifiedBoundingBoxes: ClassifiedBoundingBoxes,
+  ConeStats: ConeStats,
+  SlamState: SlamState,
+  ConesWithStats: ConesWithStats,
+  ControllerOutput: ControllerOutput,
+  ClassifiedBoundingBox: ClassifiedBoundingBox,
 };
