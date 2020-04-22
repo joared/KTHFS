@@ -14,7 +14,7 @@ from nav_msgs.msg import Odometry
 class RecordingToBag:
 	def __init__(self, imu,
 				 gps_topic="gps", gps_frame="gps_frame",
-				 imu_topic="imu", imu_frame="imu_frame",
+				 imu_topic="imu", imu_frame="imu_base_link",
 				 wheel_topic="odom", wheel_frame="odom", wheel_child_frame="rear_axle",
 				 odometry_topic="odometry", odometry_frame="map", odometry_child_frame="base_link"):
 		self.imu = imu
@@ -38,13 +38,16 @@ class RecordingToBag:
 		m.angular_velocity.x = self.imu.gyr_x[i]
 		m.angular_velocity.y = self.imu.gyr_y[i]
 		m.angular_velocity.z = self.imu.gyr_z[i]
+		m.angular_velocity_covariance[8] = 0.01**2
 		m.linear_acceleration.x = self.imu.acc_x[i]
 		m.linear_acceleration.y = self.imu.acc_y[i]
 		m.linear_acceleration.z = self.imu.acc_z[i]
-		m.linear_acceleration_covariance[0] = 0.11**2
-		m.linear_acceleration_covariance[4] = 0.11**2
-		m.angular_velocity_covariance[8] = 0.01**2
+		m.linear_acceleration_covariance[0] = 0.1
+		m.linear_acceleration_covariance[4] = 0.1
+		m.linear_acceleration_covariance[8] = 0.1
+		m.orientation.w = 1
 		return m
+
 
 	def _generate_navsat_msg(self, time, i):
 		m = NavSatFix()
@@ -53,6 +56,7 @@ class RecordingToBag:
 		m.latitude = self.imu.lat[i]
 		m.longitude = self.imu.long[i]
 		return m
+
 
 	def _generate_odometry_msg(self, time, i):
 		# TODO: position
@@ -65,6 +69,7 @@ class RecordingToBag:
 		# m.pose.position =
 		return m
 
+
 	def _generate_wheel_msg(self, time, i):
 		# TODO: position
 		m = Odometry()
@@ -75,7 +80,6 @@ class RecordingToBag:
 		m.pose.pose.orientation = Quaternion(*q)
 		m.twist.covariance[7] = 1e-2
 		return m
-
 
 
 	def create_rosbag(self, name):

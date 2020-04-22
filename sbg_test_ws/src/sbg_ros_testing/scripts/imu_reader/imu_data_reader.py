@@ -280,9 +280,9 @@ class SBGReader(ImuReader):
 		self.data_processed["acc_x"] = data["Accelerometer X"]
 		self.data_processed["acc_y"] = data["Accelerometer Y"]
 		self.data_processed["acc_z"] = data["Accelerometer Z"]
-		self.data_processed["gyr_x"] = data["Gyroscope X"]
-		self.data_processed["gyr_y"] = data["Gyroscope Y"]
-		self.data_processed["gyr_z"] = data["Gyroscope Z"]
+		self.data_processed["gyr_x"] = list(np.array(data["Gyroscope X"])/180*np.pi)
+		self.data_processed["gyr_y"] = list(np.array(data["Gyroscope Y"])/180*np.pi)
+		self.data_processed["gyr_z"] = list(np.array(data["Gyroscope Z"])/180*np.pi)
 		print("Processed ASCII data!")
 
 

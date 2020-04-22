@@ -1,0 +1,8 @@
+prefilter:
+  imu_covariance:
+    accel: [0, 0, 0, 
+            0, 0, 0, 
+            0, 0, 0]
+    angular_vel: [0, 0, 0, 
+                  0, 0, 0, 
+                  0, 0, 0]
