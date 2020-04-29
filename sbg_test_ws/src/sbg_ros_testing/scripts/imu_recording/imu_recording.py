@@ -4,6 +4,7 @@ import numpy as np
 from data_alignment import closest_index, interpolate_linear, interpolate_linear_angle
 from copy import deepcopy
 import argparse
+import utm
 
 class ImuRecording(object):
 	"""
@@ -221,6 +222,22 @@ class ImuRecording(object):
 		imu.ascii_data_keys = deepcopy(self.ascii_data_keys)
 		return imu
 
+	def pos(self, i=None):
+		if not i: i = len(self.time)
+		x0, y0, zone_nr, _ = utm.from_latlon(self.lat[0], self.long[0])
+
+		x_pos = []
+		y_pos = []
+		for lat, lon in zip(self.lat[:i], self.long[:i]):
+			x, y, _, _ = utm.from_latlon(lat, lon, force_zone_number=zone_nr)
+			x_pos.append(x-x0)
+			y_pos.append(y-y0)
+		return x_pos, y_pos
+
+	def gps_out(self):
+		"""Returns 
+		"""
+
 	def deg_to_rad(self, *keys):
 		"""
 		Converts the data for given key in processed_data from degrees to radians
@@ -316,9 +333,10 @@ class ImuRecording(object):
 	
 				# Interpolate the value to requested time t
 				if key in ["roll", "pitch", "yaw"]:
-					#interpolated_val = interpolate_linear_angle(prev_val, next_val, prev_time, next_time, t)
+					# assuming radians
 					interpolated_val = interpolate_linear_angle(prev_val, next_val, prev_time, next_time, t, np.pi, -np.pi)
 				elif key in ["lat", "long"]:
+					# assuming degrees
 					interpolated_val = interpolate_linear_angle(prev_val, next_val, prev_time, next_time, t, 180, -180)
 				else:
 					interpolated_val = interpolate_linear(prev_val, next_val, prev_time, next_time, t)

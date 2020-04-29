@@ -6,9 +6,9 @@ from itertools import izip
 import utm
 
 class ImuPlotter:
-	def __init__(self, imu):
-		self.imu = imu
-		self.pose_arrow = None
+	def __init__(self, imus):
+		self.imus = imus
+		self.pose_arrows = []
 
 	def plot_play(self, update_freq=2.5, play_speed=1, start_time=0):
 		#interval=400
@@ -23,28 +23,29 @@ class ImuPlotter:
 		#self.gyr_fig = fig.add_subplot(2,2,4)
 		self.start_time = time.time() - start_time
 		self.plot_pos()
-		self.pose_arrow = None
+		self.pose_arrows = []
 		self.ani = FuncAnimation(self.figgy, self.animate_imu, interval=interval)
 
 	def show(self):
 		plt.show()
 
 	def animate_imu(self, i):
-		if len(self.imu.time) == 0: return
+		# using first imu time as reference
+		imu = self.imus[0] 
+		if len(imu.time) == 0: return
 		t_rel = (time.time() - self.start_time)*self.play_speed
-		t_abs = self.imu.time[0] + t_rel
-		idx = self.imu.time_index(t_abs)
-		t_abs = self.imu.time[idx]
-		t_rel = t_abs - self.imu.time[0]
+		t_abs = imu.time[0] + t_rel
+		idx = imu.time_index(t_abs)
+		t_abs = imu.time[idx]
+		t_rel = t_abs - imu.time[0]
 		fig = plt.figure(self.figgy.number)
-		#print(dir(fig))
+		
 		fig.suptitle("Time: {} s ({})".format(round(t_rel, 2), round(t_abs, 2)))
-		#self.fig.cla()
 
 		self.plot_pose(idx)
 		plt.axis("equal")
 		
-		if idx == len(self.imu.time):
+		if idx == len(imu.time)-1:
 			#self.play_done = True
 			self.ani.event_source.stop()
 		
@@ -68,41 +69,54 @@ class ImuPlotter:
 		self.plot_gyr(i)
 		
 	def plot_pose(self, i=None):
-		if not i: i = len(self.imu.time)
-		if self.pose_arrow: self.pose_arrow.remove()
-		x0, y0, zone_nr, _ = utm.from_latlon(self.imu.lat[0], self.imu.long[0])
-		x, y, _, _ = utm.from_latlon(self.imu.lat[i], self.imu.long[i], force_zone_number=zone_nr)
-		x, y = x-x0, y-y0
+		for a in self.pose_arrows: a.remove()
+		self.pose_arrows = []
+		for imu in self.imus:
+			if not i: i = len(imu.time)
+			
+			x0, y0, zone_nr, _ = utm.from_latlon(imu.lat[0], imu.long[0])
+			x, y, _, _ = utm.from_latlon(imu.lat[i], imu.long[i], force_zone_number=zone_nr)
+			x, y = x-x0, y-y0
 
-		yaw = self.imu.yaw[i]
-		yaw = np.pi/2 - yaw # transform from yaw relative north to yaw relative x
-		dx = np.cos(yaw)*100
-		dy = np.sin(yaw)*100
-		self.pose_arrow = plt.arrow(x, y, dx, dy, width=20)
+			yaw = imu.yaw[i]
+			yaw = np.pi/2 - yaw # transform from yaw relative north to yaw relative x
+			dx = np.cos(yaw)*100
+			dy = np.sin(yaw)*100
+			pose_arrow = plt.arrow(x, y, dx, dy, width=20)
+			self.pose_arrows.append(pose_arrow)
 
 	def plot_pos(self, i=None):
-		if not i: i = len(self.imu.time)
-		
-		x0, y0, zone_nr, _ = utm.from_latlon(self.imu.lat[0], self.imu.long[0])
+		for imu in self.imus:
+			if not i: 
+				idx = len(imu.time)
+			else:
+				idx = i
+			
+			"""x0, y0, zone_nr, _ = utm.from_latlon(imu.lat[0], imu.long[0])
 
-		x_pos = []
-		y_pos = []
-		for lat, lon in zip(self.imu.lat[:i], self.imu.long[:i]):
-			x, y, _, _ = utm.from_latlon(lat, lon, force_zone_number=zone_nr)
-			x_pos.append(x-x0)
-			y_pos.append(y-y0)
-		plt.plot(x_pos, y_pos)	
-		
-		# Temp, scatter first and last 0 occcurance in gps signal
-		#plt.plot(self.imu.long[:i], self.imu.lat[:i])
-		#plt.scatter(x_pos[self.imu.gps_long.index(0)],
-		#			y_pos[self.imu.gps_lat.index(0)], color="r")
-		#rev_long = list(reversed(self.imu.gps_long))
-		#rev_lat = list(reversed(self.imu.gps_lat))
-		#plt.scatter(list(reversed(x_pos))[rev_long.index(0)],
-		#			list(reversed(y_pos))[rev_lat.index(0)], color="g")
-		plt.ylabel("Northings")
-		plt.xlabel("Eastings")
+			x_pos = []
+			y_pos = []
+			for lat, lon in zip(imu.lat[:idx], imu.long[:idx]):
+				x, y, _, _ = utm.from_latlon(lat, lon, force_zone_number=zone_nr)
+				x_pos.append(x-x0)
+				y_pos.append(y-y0)
+			"""
+			x_pos, y_pos = imu.pos(idx)
+			plt.plot(x_pos[:idx], y_pos[:idx])	
+			
+			# Temp, scatter first and last 0 occcurance in gps signal
+			#plt.plot(imu.long[:i], imu.lat[:i])
+
+			plt.scatter(x_pos[imu.gps_long.index(0)],
+						y_pos[imu.gps_lat.index(0)], color="r")
+			rev_long = list(reversed(imu.gps_long[:i]))
+			rev_lat = list(reversed(imu.gps_lat[:i]))
+			#rev_long = list(reversed(imu.gps_long))
+			#rev_lat = list(reversed(imu.gps_lat))
+			plt.scatter(list(reversed(x_pos))[rev_long.index(0)],
+						list(reversed(y_pos))[rev_lat.index(0)], color="g")
+			plt.ylabel("Northings")
+			plt.xlabel("Eastings")
 
 	def plot_gps(self, i=None):
 		if not i: i = len(self.imu.time)

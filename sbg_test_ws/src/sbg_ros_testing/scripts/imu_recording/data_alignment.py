@@ -19,7 +19,7 @@ def min_angle_diff(max_angle, min_angle, a1, a2):
 	abs_diffs = [abs(v) for v in diffs]
 	return diffs[abs_diffs.index(min(abs_diffs))]
 
-def align_time(imus, start_time=None, end_time=None):
+def align_time(imus, start_time=-np.inf, end_time=np.inf):
 	"""
 	Add aligned time to start at same time with the same frequency
 	

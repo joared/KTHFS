@@ -7,6 +7,7 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 
+from data_alignment import align_time
 from imu_recording import ImuRecording
 #from data_alignment import align_data, align_time, min_angle_diff
 #from imu_plotting import plot_sensors, plot_yaw
@@ -48,18 +49,28 @@ if __name__ == '__main__':
 	imu2 = ImuRecording("ascii")
 	imu2.read("auto_dead_reck.processed")
 	imu2.deg_to_rad("yaw")
+
+	#t = align_time([imu, imu2])
+	
+	#keys = ["yaw", "lat", "long"]
+	#print(imu.long)
+	#imu.align_data(t, keys)
+	#print(imu.long)
+	#imu2.align_data(t, keys)
+	#imu2.time = [t for t in imu.time]
+
 	#imu.align_freq(1)
 	#plt.plot(imu.long, imu.lat)
 	#plt.show()
 	from imu_plotter import ImuPlotter
-	p1 = ImuPlotter(imu)
+	p1 = ImuPlotter([imu, imu2])
 	p2 = ImuPlotter(imu2)
 	#plotter.plot_play(1, start_time=0)
 	#plotter.show()
 	#imu.plot_all()
 	
 	p1.plot_play(update_freq=30, play_speed=5)
-	p2.plot_play(update_freq=30, play_speed=5)
+	#p2.plot_play(update_freq=30, play_speed=5)
 	#p2.plot_gps()
 	#p2.plot_pose()
 	#plt.xlim(-1850, 0)
