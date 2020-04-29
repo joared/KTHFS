@@ -2,15 +2,20 @@
   <!--param name ="/use_sim_time" value="true" /-->
   <arg name="rviz" value="false" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1.0 map odom" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="rear_axle_to_imu_base_link" args="1 0.05 0.35 0 0 3.14 rear_axle imu_base_link" />
-  <!--node pkg="tf2_ros" type="static_transform_publisher" name="rear_axle_to_imu_base_link" args="1 0.05 0.35 0 0 0 rear_axle imu_base_link" /-->
+  <!--node pkg="tf2_ros" type="static_transform_publisher" name="rear_axle_to_imu_base_link" args="1 0.05 0.35 0 0 3.14 rear_axle imu_base_link" /-->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="rear_axle_to_imu_base_link" args="0 0 0 0 0 0 rear_axle imu_base_link" />
 
   <rosparam file="$(find localization)/config/robot_localization.yaml" command="load"/>
+  <rosparam file="$(find localization)/config/prefilter.yaml" command="load"/>
 
+  <node name="prefilter_node" type="prefilter_node.py" pkg="localization">
+  </node>
 
   <node name="ukf_odom" type="ukf_localization_node" pkg="robot_localization">
-    <remap from="odometry/filtered" to="/odometry/filtered" />
+    <remap from="odom" to="odometry/prefiltered" />
+    <remap from="imu" to="imu/prefiltered" />
   </node>
+
 
 
 </launch>

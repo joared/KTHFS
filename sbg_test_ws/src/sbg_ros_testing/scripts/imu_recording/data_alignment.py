@@ -19,25 +19,22 @@ def min_angle_diff(max_angle, min_angle, a1, a2):
 	abs_diffs = [abs(v) for v in diffs]
 	return diffs[abs_diffs.index(min(abs_diffs))]
 
-def align_time(imus):
+def align_time(imus, start_time=None, end_time=None):
 	"""
 	Add aligned time to start at same time with the same frequency
 	
 	input: list with the imus objects in the order [SBG, Xsens, VBOX]
 	output: imu objects with aligned time data field
 	"""
-	sbg = imus[0]
-	xsens = imus[1]
-	vbox = imus[2]
-	start_time = max([sbg.time[0], xsens.time[0], vbox.time[0]])
-	end_time = min([sbg.time[-1], xsens.time[-1], vbox.time[-1]])
+	
+	start_time = max([max([imu.time[0] for imu in imus]), start_time])
+	end_time = min([min([imu.time[-1] for imu in imus]), end_time])
+	print(start_time)
+	print(end_time)
+
 
 	# Find highest frequency signal
-	sbg_period = sbg.time[2]-sbg.time[1]
-	xsens_period = xsens.time[2]-xsens.time[1]
-	vbox_period = vbox.time[2]-vbox.time[1]
-	imu_periods = [sbg_period, xsens_period, vbox_period]
-	
+	imu_periods = [imu.time[2]-imu.time[1] for imu in imus]
 	min_period = min(imu_periods)
 	min_period_imu = imus[imu_periods.index(min_period)]
 
@@ -45,14 +42,14 @@ def align_time(imus):
 	start_index = closest_index(min_period_imu.time, start_time) + 1 # +1 and -1 only to guarantee valid values/index
 	end_index = closest_index(min_period_imu.time, end_time) - 1
 	new_time = min_period_imu.time[start_index:end_index]
-	
+	return new_time
 	# Add new aligned time attribute to every imu
-	sbg.time_aligned = new_time
-	xsens.time_aligned = new_time
-	vbox.time_aligned = new_time
+	#sbg.time_aligned = new_time
+	#xsens.time_aligned = new_time
+	#vbox.time_aligned = new_time
 
-	updated_imus = [sbg, xsens, vbox]
-	return updated_imus
+	#updated_imus = [sbg, xsens, vbox]
+	#return updated_imus
 
 def align_data(imus, vel_x=False, vel_y=False, latitude=False, longitude=False, yaw=False):
 	"""
@@ -102,7 +99,7 @@ def interpolate_linear(prev_val, next_val, prev_t, next_t, new_t):
 	#	raise Exception("Wrong calculation!: {} != {}".format(new_val_jack, new_val))
 	return new_val
 
-def interpolate_linear_angle(prev_val, next_val, prev_t, next_t, new_t):
+def interpolate_linear_angle(prev_val, next_val, prev_t, next_t, new_t, max_angle, min_angle):
 	max_angle = 180
 	min_angle = -180
 	next_val = prev_val + min_angle_diff(max_angle, min_angle, prev_val, next_val)
@@ -143,3 +140,27 @@ def take_closest(data_list, val):
     #   return after
     #else:
     #   return before
+
+if __name__ == "__main__":
+	# test
+	from imu_data_reader import *
+	import matplotlib.pyplot as plt
+	import numpy as np
+	imu1 = SBGReader()
+	imu2 = SBGReader()
+	imu1.read("SBG_general_000.txt")
+	imu2.read("SBG_general_000.processed")
+	t1 = imu1.time
+	t2 = imu2.time
+	t = align_time([imu1, imu2], 42150, 42160)
+	for t11, t22, tt in zip(t1,t2,t):
+		assert t11 == t22, "{} != {}".format(t11, t22)
+		#assert t11 == tt, "{} != {}".format(t11, tt)
+		#assert t22 == tt, "{} != {}".format(t22, tt)
+	
+	print(len(t1))
+	print(len(t))
+	plt.plot(imu2.time, imu2.yaw)
+	imu2.align_data(["roll", "pitch", "yaw"], t)
+	plt.plot(imu2.time, np.array(imu2.yaw)+0.1)
+	plt.show()

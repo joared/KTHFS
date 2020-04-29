@@ -1,7 +1,7 @@
 <launch>
     <arg name="update_freq" default="10"/>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map_publisher" args="0 0 0 0 0 0 world map"/>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom_publisher" args="0 0 0 0 0 0 map odom"/>
+    <!--node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map_publisher" args="0 0 0 0 0 0 world map"/-->
+    <!--node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom_publisher" args="0 0 0 0 0 0 map odom"/-->
     <!--node pkg="sbg_ros_testing" type="plot_sbg_pos.py" name="sbg_pos_plotter"/-->
     <node pkg="sbg_ros_testing" type="imu_plotter_real_time.py" name="sbg_pos_plotter">
         <param name="freq" value="$(arg update_freq)"/>
