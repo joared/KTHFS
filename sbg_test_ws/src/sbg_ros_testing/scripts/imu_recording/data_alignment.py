@@ -29,8 +29,6 @@ def align_time(imus, start_time=-np.inf, end_time=np.inf):
 	
 	start_time = max([max([imu.time[0] for imu in imus]), start_time])
 	end_time = min([min([imu.time[-1] for imu in imus]), end_time])
-	print(start_time)
-	print(end_time)
 
 
 	# Find highest frequency signal

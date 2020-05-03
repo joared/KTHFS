@@ -1,44 +1,22 @@
 # imu_data_reader.py
 import os
 import numpy as np
-from data_alignment import closest_index, interpolate_linear, interpolate_linear_angle
+from data_alignment import closest_index, interpolate_linear, interpolate_linear_angle, convert_angle_in_range
 from copy import deepcopy
 import argparse
 import utm
 
 class ImuRecording(object):
-	"""
-	TODO: names like processed and raw are a bit inconsistent, maybe change that
-	Base class for IMU readers that read IMU data from a generated ASCII file. 
-	This class should not be instanciated. 
-	Create sub-classes that inherit this class. The sub-class should define:
-
-	read_ascii(self, file_path, delimiter): Reads the lines in the ASCII file and 
-										    puts the data in the .ascii_data dictionary. 
-										    Should return a list of ignored lines for debugging.
-
-	General:
-
-	Only difference between read and read_ascii is that ignored lines are being logged in a file in read while
-	read_ascii is actually reading the 
-
-	The methods 'read_data_type_line' and 'read_data_line' are helping methods that can be used in read_ascii.
-	For example the ASCII formats from SBG, Xsens and VBOX are similar and data can be read in a similar way
-	using these helping methods.
-
-	Using the align_data method, aligns the data in processed_data to a specific time alignment and also sets the
-	'time' key in processed_data to that time. This can be useful when multiple IMUs have different time alignments
-	and a comparision wants to be made between them. Linear interpolation is used to adjust the values.
-	This aligned time can be retrieved by using the align_time function in the data_alignment module.
-	"""
 
 	# Pre-defined data keys that will be tried to be set from the raw data in a read_ascii() call
 	# TODO: not sure if all of these units are correct
-	PROCESSED_DATA_KEYS = ["time", 	# UTC time in seconds
+	PROCESSED_DATA_KEYS = ("time", 	# UTC time in seconds
 						   "gps_long",
 						   "gps_lat",
 						   "long", 	# degrees
 						   "lat",  	# degrees
+						   "pos_x",
+						   "pos_y",
 						   "vel_x",	# m/s
 						   "vel_y",	# m/s
 						   "vel_z",	# m/s
@@ -50,20 +28,23 @@ class ImuRecording(object):
 						   "acc_z", # m/s^2
 						   "gyr_x", # radians/s
 						   "gyr_y", # radians/s
-						   "gyr_z"] # radians/s
+						   "gyr_z") # radians/s
 	
-	# This class attribute is used to initialize the .processed_data 
-	# attribute of instances of this class by copying this dict
-	PROCESSED_DATA_DEFAULT = {}
-	for k in PROCESSED_DATA_KEYS:
-		PROCESSED_DATA_DEFAULT[k] = []
 
+	N_INSTANCES = 0
 
-	def __init__(self, files_dir=""):
+	def __init__(self, name=None, files_dir=""):
+		if name: 
+			self.name = name
+		else: 
+			self.name = "{}{}".format(self.__class__.__name__, self.__class__.N_INSTANCES)
+			# incerement N_INSTANCES to have unique names for multiple instances 
+			self.__class__.N_INSTANCES += 1 
+
 		self.files_dir = files_dir
-		self.ascii_data_keys = [] # data types in order presented in ascii file
-		self.ascii_data = {} 		# ascii file data
-		self.processed_data = deepcopy(self.PROCESSED_DATA_DEFAULT) # data processed from ascii file
+		self.ascii_data_keys = []
+		self.ascii_data = {}
+		self.processed_data = {key: [] for key in self.PROCESSED_DATA_KEYS}
 
 	def __getattr__(self, attr):
 		"""
@@ -88,11 +69,19 @@ class ImuRecording(object):
 		else:
 			self.__dict__[attr] = val
 			
-	
+	def __eq__(self, other):
+		for k in self.processed_data:
+			if self.processed_data[k] != other.processed_data[k]:
+				return False
+		return True
+
 	def reset(self):
+		"""
+		Resets all data. We use deepcopy to get new instances of the list.
+		"""
 		self.ascii_data_keys = []
 		self.ascii_data = {}
-		self.processed_data = deepcopy(self.PROCESSED_DATA_DEFAULT)
+		self.processed_data = {key: [] for key in self.PROCESSED_DATA_KEYS}
 		
 
 	def set_read_dir(self, files_dir):
@@ -103,8 +92,16 @@ class ImuRecording(object):
 		"""
 		self.files_dir = files_dir
 		
-		
-	def read(self, file_path, delimiter="\t", save=False, debug=False):
+	def read(self, file_path, delimiter="\t", save_processed_data=False, debug=False):
+		"""
+		Reads .processed or ascii file. If the extension of the file_path is .processed, 
+		read_processed_data will be called. Any other extension is assumed to be an ascii file and 
+		read_ascii will be called.
+		delimiter: data separator in the file
+		save_processed_data: if True, save .processed file after reading
+		debug: saves ignored lines returned from read_ascii in a log file. Useful to see if 
+			   reading is done correctly
+		"""
 		self.reset()
 		
 		if not os.path.isabs(file_path):
@@ -129,7 +126,7 @@ class ImuRecording(object):
 			else:
 				print("Read ASCII data from '{}'".format(file_path))
 
-		if save: self.save_processed_data(file_path, delimiter)
+		if save_processed_data: self.save_processed_data(file_path, delimiter)
 		if debug: self.log_ignored_data(ignored_lines)
 
 
@@ -137,16 +134,17 @@ class ImuRecording(object):
 		raise Exception("The base class '{}' can't read ASCII files. Instanciate the proper sub-class to read ASCII files.")
 
 
-	def read_data_type_line(self, line, delimiter=None):
+	def read_data_type_line(self, line, delimiter):
+		"""
+		Reads line 
+		"""
 		line_ls = [s.strip() for s in line.split(delimiter)]
 		for d in line_ls:
 			self.ascii_data_keys.append(d)
 			self.ascii_data[d] = []
-			#print("'" + d + "'")
-		#print("Data types registered!")
 
 
-	def read_data_line(self, line, delimiter=None):
+	def read_data_line(self, line, delimiter):
 		values = []
 		for s in line.split(delimiter):		
 			s = s.strip()
@@ -166,16 +164,16 @@ class ImuRecording(object):
 			f.write("Ignored lines\n")
 			f.writelines(ignored_lines)
 
-	def read_processed_data(self, file_path, delimiter=None):
+	def read_processed_data(self, file_path, delimiter="\t"):
 		self.reset()
 		assert os.path.splitext(file_path)[1] == ".processed", "Extension has to be '.processed'"
-		if delimiter is None: delimiter = "\t"
 
 		with open(file_path, "r") as f:
 			read_keys = True
+			keys = ()
 			for line in f:
 				if read_keys:
-					keys = [k.strip() for k in line.split(delimiter)]
+					keys = tuple([k.strip() for k in line.split(delimiter)])
 					assert keys == self.PROCESSED_DATA_KEYS, "Invalid .processed file. {} != {}".format(keys, self.PROCESSED_DATA_KEYS)
 					read_keys = False
 				else:
@@ -184,8 +182,10 @@ class ImuRecording(object):
 						try:
 							val = float(val)
 						except ValueError:
+							# ignore non float values
 							pass
-						self.processed_data[k].append(val)
+						else:
+							self.processed_data[k].append(val)
 
 	def save(self, file_path, delimiter="\t"):
 		"""
@@ -197,7 +197,10 @@ class ImuRecording(object):
 		
 		# verify that the length of all data is equal
 		len_set = set([len(self.processed_data[k]) for k in self.PROCESSED_DATA_KEYS])
-		assert len(len_set) == 1, "The stored data do not have the same lengths."
+		if len(len_set) == 2:
+			assert 0 in len_set, "The stored data do not have the same lengths."
+		else:
+			assert len(len_set) == 1, "The stored data do not have the same lengths."
 
 		with open(file_path, "w") as f:
 			f.write(delimiter.join(self.PROCESSED_DATA_KEYS) + "\n")
@@ -222,19 +225,17 @@ class ImuRecording(object):
 		imu.ascii_data_keys = deepcopy(self.ascii_data_keys)
 		return imu
 
-	def pos(self, i=None):
-		if not i: i = len(self.time)
+	def latlon_to_pos(self):
 		x0, y0, zone_nr, _ = utm.from_latlon(self.lat[0], self.long[0])
-
 		x_pos = []
 		y_pos = []
-		for lat, lon in zip(self.lat[:i], self.long[:i]):
+		for lat, lon in zip(self.lat, self.long):
 			x, y, _, _ = utm.from_latlon(lat, lon, force_zone_number=zone_nr)
 			x_pos.append(x-x0)
 			y_pos.append(y-y0)
 		return x_pos, y_pos
 
-	def gps_out(self):
+	def gps_outages(self):
 		"""Returns 
 		"""
 
@@ -253,6 +254,9 @@ class ImuRecording(object):
 			self.processed_data[key] = list(np.array(self.processed_data[key])/np.pi*180)			
 
 	def time_index(self, time):
+		"""
+		Returns index of the closest time lower than time. 
+		"""
 		return closest_index(self.time, time)
 
 
@@ -306,7 +310,7 @@ class ImuRecording(object):
 	def align_data(self, aligned_time, keys=None):
 		# TODO: reset all values that are not aligned?
 		if keys is None: 
-			keys = deepcopy(self.PROCESSED_DATA_KEYS)
+			keys = self.processed_data.keys()
 			keys.pop(keys.index("time")) # time should not be included
 		else:
 			for k in keys:
@@ -314,15 +318,24 @@ class ImuRecording(object):
 				assert k != "time", "time should not be a key"
 
 		max_idx = len(self.processed_data["time"])-1
-		for key in keys:
+		for key in self.PROCESSED_DATA_KEYS:
+			if key == "time" or len(self.processed_data[key]) == 0:
+				continue
+			if key not in keys: 
+				self.processed_data[key] = []
+				continue
+
 			aligned_data = []
 			for t in aligned_time:
 
 				# Find the previous value
 				prev_index = closest_index(self.processed_data["time"], t)
-				
 				prev_time = self.processed_data["time"][prev_index]
-				prev_val = self.processed_data[key][prev_index]
+				try:
+					prev_val = self.processed_data[key][prev_index]
+				except:
+					print(key)
+					raise Exception()
 				if prev_index == max_idx:
 					aligned_data.append(prev_val)
 					break
@@ -345,6 +358,9 @@ class ImuRecording(object):
 				
 			self.processed_data[key] = aligned_data
 		self.processed_data["time"] = [t for t in aligned_time]
+
+	def is_aligned_with(self, imu):
+		return all([t1 == t2 for t1,t2 in zip(self.time, imu.time)])
 
 	""" Some methods with implementations refactored elsewhere"""
 
@@ -369,27 +385,139 @@ class ImuRecording(object):
 		
 	def plot_all(self):
 		from imu_plotter import ImuPlotter
-		plotter = ImuPlotter(self)
+		plotter = ImuPlotter([self])
 		plotter.plot_all()
 		plotter.show()
 
-class VBOXReader(ImuRecording):
-	NAME = "VBOX"
-	
-
-class XsensReader(ImuRecording):
+class XsensRecording(ImuRecording):
+	DELIMITER = "\t"
 	NAME = "Xsens"
+		
+	def read_ascii(self, file_path, delimiter):
+		ignored_lines = []
+		read_data = False
+		
+		with open(file_path, "r") as f:
+			for line in f:
+				if "PacketCounter" in line:
+					self.read_data_type_line(line, delimiter)
+					read_data = True
+				elif read_data is True:
+					self.read_data_line(line, delimiter)
+				else:
+					ignored_lines.append(line)
+					
+		self._process_data(self.ascii_data)
+		return ignored_lines
+
+	def _process_data(self, data):
+		data = data.copy()
+		self.time = self._utc_to_sec(data)
+		#self.acc_x = self.data["Acc_X"]
+		#self.acc_y = self.data["Acc_Y"]
+		#self.acc_z = self.data["Acc_Z"]
+		#self.gyr_x = self.data["Gyr_X"]
+		#self.gyr_y = self.data["Gyr_Y"]
+		#self.gyr_z = self.data["Gyr_Z"]
+		#self.vel_inc_x = self.data["VelInc_X"]
+		#self.vel_inc_y = self.data["VelInc_Y"]
+		#self.vel_inc_z = self.data["VelInc_Z"]
+		self.processed_data["vel_x"] = data["Vel_X"]#self._velocity_converter()#
+		self.processed_data["vel_y"] = data["Vel_Y"]
+		#self.vel_z = self.data["Vel_Z"]
+		#self.roll = self.data["Roll"]
+		#self.pitch = self.data["Pitch"]
+		self.processed_data["yaw"] = [convert_angle_in_range(180, -180, a) for a in list(-np.array(data["Yaw"]) + 90)]
+		self.processed_data["long"] = data["Longitude"]
+		self.processed_data["lat"] = data["Latitude"]
+		(self.processed_data["pos_x"], 
+		 self.processed_data["pos_y"]) = self.latlon_to_pos(self.processed_data["lat"],
+		 													 self.processed_data["long"])
+
+	def _utc_to_sec(self, data):
+		#print("Converting UTC Time to sec")
+		sec_values = [] # Init new list
+		for i in range(len(data["UTC_Minute"])):
+			hour = data["UTC_Hour"][i]
+			minute = data["UTC_Minute"][i]
+			second = data["UTC_Second"][i]
+			mili = data["UTC_Nano"][i]/1000000000.0
+
+			sec_values.append(60*60*hour+60*minute+second+mili)
+		return sec_values
+
+	def _velocity_converter(self):
+		pass
+
+
+		
+class VBOXRecording(ImuRecording):
+		
+	def read_ascii(self, file_path, delimiter=" "):
+		ignored_lines = []
+		with open(file_path, "r") as f:
+			
+			read_data_types = False
+			read_data = False
+			
+			for line in f:
+				if "[column names]" in line:
+					read_data_types = True
+					
+				elif "[data]" in line:
+					read_data = True
+					
+				elif read_data_types is True:
+					read_data_types = False
+					self.read_data_type_line(line, delimiter)
+					
+				elif read_data is True:
+					self.read_data_line(line, delimiter)
+				else:
+					#print("Ignoring '{}'".format(line))
+					ignored_lines.append(line)
+					
+		self._process_data(self.ascii_data)	
+		return ignored_lines
+
+	def _process_data(self, data):
+		# TODO: units not used atm
+		data = data.copy()
+		self.processed_data["time"] = self._utc_to_sec(data)
+		#self.processed_data["gps_long"] = data["Lon"]
+		#self.processed_data["gps_lat"] = data["Lat"]
+		self.processed_data["long"] = [-v/60 for v in data["long"]] # minutes to degrees
+		self.processed_data["lat"] = [v/60 for v in data["lat"]]  # minutes to degrees
+		(self.processed_data["pos_x"], 
+		 self.processed_data["pos_y"]) = self.latlon_to_pos(self.processed_data["lat"],
+		 													 self.processed_data["long"])
+		self.processed_data["vel_x"] = data["velocity"]
+		self.processed_data["vel_y"] = [-v for v in data["vert-vel"]]
+		self.processed_data["vel_z"] = data["vert-vel"]
+		#self.processed_data["vel_z"] = data["Z Velocity"]
+		#self.processed_data["roll"] = data["Roll"]
+		#self.processed_data["pitch"] = data["Pitch"]
+		self.processed_data["yaw"] = data["heading"]#["heading"]
+		#self.processed_data["acc_x"] = data["Accelerometer X"]
+		#self.processed_data["acc_y"] = data["Accelerometer Y"]
+		#self.processed_data["acc_z"] = data["Accelerometer Z"]
+		#self.processed_data["gyr_x"] = data["Gyroscope X"]
+		#self.processed_data["gyr_y"] = data["Gyroscope Y"]
+		#self.processed_data["gyr_z"] = data["Gyroscope Z"]
+
+	def _utc_to_sec(self, data):
+		#print("Converting UTC Time to sec")
+		sec_values = [] # Init new list
+		for t in data["time"]:
+			t_str = str(t)
+			hour = float(t_str[0:2])
+			minute = float(t_str[2:4])
+			sec = float(t_str[4:])
+			sec_values.append(60*60*hour+60*minute+sec)
+		return sec_values
 
 		
 class SBGRecording(ImuRecording):
-	N = 0 # Number of times this class has been instanciated ('_N' will be appended to self.name)
-	NAME = "SBG"
-
-	def __init__(self, files_dir=""):
-		ImuRecording.__init__(self, files_dir)
-		self.name = "{}_{}".format(self.NAME, self.N)
-		self.__class__.N += 1 # incerement N to have unique names for multiple instances 
-
 
 	def read_ascii(self, file_path, delimiter):
 		ignored_lines = []
@@ -411,10 +539,13 @@ class SBGRecording(ImuRecording):
 		# TODO: units not used atm
 		data = data.copy()
 		self.processed_data["time"] = self._utc_to_sec(data)
-		self.processed_data["gps_long"] = data["Lon"]
-		self.processed_data["gps_lat"] = data["Lat"]
+		#self.processed_data["gps_long"] = data["Lon"]
+		#self.processed_data["gps_lat"] = data["Lat"]
 		self.processed_data["long"] = data["Longitude"]
 		self.processed_data["lat"] = data["Latitude"]
+		(self.processed_data["pos_x"], 
+		 self.processed_data["pos_y"]) = self.latlon_to_pos(self.processed_data["lat"],
+		 													 self.processed_data["long"])
 		self.processed_data["vel_x"] = data["X Velocity"]
 		self.processed_data["vel_y"] = data["Y Velocity"]
 		self.processed_data["vel_z"] = data["Z Velocity"]
