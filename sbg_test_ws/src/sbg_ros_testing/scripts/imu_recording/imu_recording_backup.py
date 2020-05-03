@@ -11,22 +11,24 @@ class ImuRecording(object):
 	# Pre-defined data keys that will be tried to be set from the raw data in a read_ascii() call
 	# TODO: not sure if all of these units are correct
 	PROCESSED_DATA_KEYS = ("time", 	# UTC time in seconds
-						   "gps_long", # degrees
-						   "gps_lat",  # degrees
-						   "pos_x", # m
-						   "pos_y", # m
+						   "gps_long",
+						   "gps_lat",
+						   "long", 	# degrees
+						   "lat",  	# degrees
+						   "pos_x",
+						   "pos_y",
 						   "vel_x",	# m/s
 						   "vel_y",	# m/s
 						   "vel_z",	# m/s
-						   "roll",	# degrees
-						   "pitch", # degrees
-						   "yaw",	# degrees
+						   "roll",	# radians
+						   "pitch", # radians
+						   "yaw",	# radians
 						   "acc_x", # m/s^2
 						   "acc_y", # m/s^2
 						   "acc_z", # m/s^2
-						   "gyr_x", # degrees/s
-						   "gyr_y", # degrees/s
-						   "gyr_z") # degrees/s
+						   "gyr_x", # radians/s
+						   "gyr_y", # radians/s
+						   "gyr_z") # radians/s
 	
 
 	N_INSTANCES = 0
@@ -35,11 +37,13 @@ class ImuRecording(object):
 		if name: 
 			self.name = name
 		else: 
-			self.name = "IMU_{}".format(self.__class__.N_INSTANCES)
+			self.name = "{}{}".format(self.__class__.__name__, self.__class__.N_INSTANCES)
 			# incerement N_INSTANCES to have unique names for multiple instances 
 			self.__class__.N_INSTANCES += 1 
 
 		self.files_dir = files_dir
+		self.ascii_data_keys = []
+		self.ascii_data = {}
 		self.processed_data = {key: [] for key in self.PROCESSED_DATA_KEYS}
 
 	def __getattr__(self, attr):
@@ -72,6 +76,11 @@ class ImuRecording(object):
 		return True
 
 	def reset(self):
+		"""
+		Resets all data. We use deepcopy to get new instances of the list.
+		"""
+		self.ascii_data_keys = []
+		self.ascii_data = {}
 		self.processed_data = {key: [] for key in self.PROCESSED_DATA_KEYS}
 		
 
@@ -83,27 +92,89 @@ class ImuRecording(object):
 		"""
 		self.files_dir = files_dir
 		
-	def read(self, file_path, delimiter="\t"):
+	def read(self, file_path, delimiter="\t", save_processed_data=False, debug=False):
 		"""
-
+		Reads .processed or ascii file. If the extension of the file_path is .processed, 
+		read_processed_data will be called. Any other extension is assumed to be an ascii file and 
+		read_ascii will be called.
+		delimiter: data separator in the file
+		save_processed_data: if True, save .processed file after reading
+		debug: saves ignored lines returned from read_ascii in a log file. Useful to see if 
+			   reading is done correctly
 		"""
 		self.reset()
-
+		
 		if not os.path.isabs(file_path):
 			file_path = os.path.join(self.files_dir, file_path)
 		# Read processed data file
 		ext = os.path.splitext(file_path)[1]
-		if not ext == ".processed":
-			raise Exception("Can only read .processed data files. Not '.{}'".format(ext))
+		if ext == ".processed":
+			self.read_processed_data(file_path)
+			ignored_lines = []
+			print("Read processed data from '{}'".format(file_path))
+		else:
+			# Read ascii data file
+			# Each sub-class needs to define a read_ascii method which takes 
+			# a file path and a delimiter as paramters and returns a list 
+			# with all lines that has been ignored
+			
+			try:
+				ignored_lines = self.read_ascii(file_path, delimiter) 
+			except KeyError as e:
+				print(e)
+				raise KeyError("A key error occured during reading, is the delimiter set correctly? (check the printed ascii_data_key if they look reasonable)") 
+			else:
+				print("Read ASCII data from '{}'".format(file_path))
 
-		print("Read processed data from '{}'".format(file_path))	
+		if save_processed_data: self.save_processed_data(file_path, delimiter)
+		if debug: self.log_ignored_data(ignored_lines)
+
+
+	def read_ascii(self, file_path, delimiter):
+		raise Exception("The base class '{}' can't read ASCII files. Instanciate the proper sub-class to read ASCII files.")
+
+
+	def read_data_type_line(self, line, delimiter):
+		"""
+		Reads line 
+		"""
+		line_ls = [s.strip() for s in line.split(delimiter)]
+		for d in line_ls:
+			self.ascii_data_keys.append(d)
+			self.ascii_data[d] = []
+
+
+	def read_data_line(self, line, delimiter):
+		values = []
+		for s in line.split(delimiter):		
+			s = s.strip()
+			try:
+				val = float(s)
+			except ValueError:
+				val = s
+			values.append(val)
+			
+		for k, v in zip(self.ascii_data_keys, values):
+			self.ascii_data[k].append(v)
+
+
+	def log_ignored_data(self, ignored_lines):
+		name = str(self.NAME) + "_ignored_data.txt"
+		with open(name, "w") as f:
+			f.write("Ignored lines\n")
+			f.writelines(ignored_lines)
+
+	def read_processed_data(self, file_path, delimiter="\t"):
+		self.reset()
+		assert os.path.splitext(file_path)[1] == ".processed", "Extension has to be '.processed'"
+
 		with open(file_path, "r") as f:
 			read_keys = True
+			keys = ()
 			for line in f:
 				if read_keys:
 					keys = tuple([k.strip() for k in line.split(delimiter)])
-					for key in keys:
-						assert key in self.PROCESSED_DATA_KEYS, "Invalid .processed file. '{}' is a not a valid data field".format(key)
+					assert keys == self.PROCESSED_DATA_KEYS, "Invalid .processed file. {} != {}".format(keys, self.PROCESSED_DATA_KEYS)
 					read_keys = False
 				else:
 					vals = [val.strip() for val in line.split(delimiter)]
@@ -112,7 +183,7 @@ class ImuRecording(object):
 							val = float(val)
 						except ValueError:
 							# ignore non float values
-							raise Exception("Non float value found in .processed file, value is '{}'.".format(val))
+							pass
 						else:
 							self.processed_data[k].append(val)
 
@@ -124,8 +195,6 @@ class ImuRecording(object):
 		file_path = os.path.splitext(file_path)[0] + ".processed"
 		file_path = os.path.join(self.files_dir, file_path)
 		
-		assert len(self.processed_data['time']) > 0, "Recording needs time data"
-
 		# verify that the length of all data is equal
 		len_set = set([len(self.processed_data[k]) for k in self.PROCESSED_DATA_KEYS])
 		if len(len_set) == 2:
@@ -134,29 +203,41 @@ class ImuRecording(object):
 			assert len(len_set) == 1, "The stored data do not have the same lengths."
 
 		with open(file_path, "w") as f:
-			non_empty_keys = [key for key in self.PROCESSED_DATA_KEYS if self.processed_data[key]]
-			f.write(delimiter.join(non_empty_keys) + "\n")
+			f.write(delimiter.join(self.PROCESSED_DATA_KEYS) + "\n")
 			
-			for i in range(len(self.processed_data['time'])):
+			for i in range(len(self.time)):
 				line = []
 				
-				for k in non_empty_keys:
-					line.append(str(self.processed_data[k][i]))
+				for k in self.PROCESSED_DATA_KEYS:
+					try:
+						line.append(str(self.processed_data[k][i]))
+					except IndexError:
+						line.append("N/A")
 
+				#print(delimiter.join(line))
 				f.write(delimiter.join(line) + "\n")
 		print("Wrote processed data to '{}'".format(file_path))
 
 	def copy(self):
-		imu = ImuRecording(files_dir=self.files_dir)
-		imu.processed_data = {k:[v for v in self.processed_data[k]] for k in self.processed_data}
-		deepcopy(self.processed_data)
+		imu = self.__class__()
+		imu.processed_data = deepcopy(self.processed_data)
+		imu.ascii_data = deepcopy(self.ascii_data)
+		imu.ascii_data_keys = deepcopy(self.ascii_data_keys)
 		return imu
 
+	def latlon_to_pos(self):
+		x0, y0, zone_nr, _ = utm.from_latlon(self.lat[0], self.long[0])
+		x_pos = []
+		y_pos = []
+		for lat, lon in zip(self.lat, self.long):
+			x, y, _, _ = utm.from_latlon(lat, lon, force_zone_number=zone_nr)
+			x_pos.append(x-x0)
+			y_pos.append(y-y0)
+		return x_pos, y_pos
+
 	def gps_outages(self):
+		"""Returns 
 		"""
-		TODO 
-		"""
-		return
 
 	def deg_to_rad(self, *keys):
 		"""
