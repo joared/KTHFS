@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import os
+import numpy as np
 
 import rospy
 import rosbag
@@ -18,6 +19,7 @@ class RecordingToBag:
 				 odometry_topic="odometry", odometry_frame="map", odometry_child_frame="base_link"):
 		self.imu = imu
 		assert self.imu.time, "IMU data 'time' is needed to save the recording as a rosbag"
+		self.freq_dict = None
 
 		self.gps_topic = gps_topic
 		self.gps_frame = gps_frame
@@ -55,17 +57,21 @@ class RecordingToBag:
 
 
 	def _generate_odometry_msg(self, time, i):
-		# TODO: position
 		m = Odometry()
 		m.header.stamp = time
 		m.header.frame_id = self.odometry_frame
 		m.child_frame_id = self.odometry_child_frame
-		q = quaternion_from_euler(self.imu.roll[i], self.imu.pitch[i], self.imu.yaw[i], "sxyz")
+		m.pose.pose.position.x = self.imu.pos_x[i]
+		m.pose.pose.position.y = self.imu.pos_y[i]
+		q = quaternion_from_euler(np.deg2rad(self.imu.roll[i]), 
+								  np.deg2rad(self.imu.pitch[i]), 
+								  np.deg2rad(self.imu.yaw[i]), 
+								  "sxyz")
 		m.pose.pose.orientation = Quaternion(*q)
 		m.twist.twist.linear.x = self.imu.vel_x[i]
 		m.twist.twist.linear.y = self.imu.vel_y[i]
 		m.twist.twist.linear.z = self.imu.vel_z[i]
-		# m.pose.position =
+
 		return m
 
 
@@ -80,23 +86,40 @@ class RecordingToBag:
 		return m
 
 
-	def create_rosbag(self, name):
+	def create_rosbag(self, name, on_new_data=False, freq_dict=None):
+		# TODO: use freq_dict to set frequency of each signal,
+		# None means on new data
+		self.freq_dict = None
+
 		name = os.path.splitext(name)[0] + ".bag"
 		with rosbag.Bag(name, "w") as bag:
 			for i, t in enumerate(self.imu.time):
 				time = rospy.Time(t)
+			
+				write_imu = bool(self.imu.acc_x)
+				write_gps = bool(self.imu.gps_long)
+				write_odom = bool(self.imu.pos_x)
+				#write_wheel = True
+				if i > 0 and on_new_data:
+					write_imu = write_imu and self.imu.acc_x[i] != self.imu.acc_x[i-1]
+					write_gps = write_gps and self.imu.gps_long[i] != self.imu.gps_long[i-1]
+					write_odom = write_odom and self.imu.pos_x[i] != self.imu.pos_x[i-1]
+					#write_wheel = write_wheel and True
 
 				# acceleration, gyroscope and magnetometer
-				imu_msg = self._generate_imu_msg(time, i)
-				bag.write(self.imu_topic, imu_msg, time)
+				if write_imu:
+					imu_msg = self._generate_imu_msg(time, i)
+					bag.write(self.imu_topic, imu_msg, time)
 
 				# gps longitude and latitude
-				gps_msg = self._generate_navsat_msg(time, i)
-				bag.write(self.gps_topic, gps_msg, time)
+				if write_gps:
+					gps_msg = self._generate_navsat_msg(time, i)
+					bag.write(self.gps_topic, gps_msg, time)
 
-				# position, orientation and velocity output
-				odom_msg = self._generate_odometry_msg(time, i)
-				bag.write(self.odometry_topic, odom_msg, time)
+				# position, orientation and velocity
+				if write_odom:
+					odom_msg = self._generate_odometry_msg(time, i)
+					bag.write(self.odometry_topic, odom_msg, time)
 
 				# wheel encoder, currently not implemented
 				#wheel_msg = self._generate_wheel_msg(time, i)

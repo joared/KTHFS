@@ -12,6 +12,7 @@
 
 
 import os
+import numpy as np
 from imu_recording import ImuRecording
 import rosbag
 from tf.transformations import euler_from_quaternion
@@ -32,11 +33,11 @@ class RosbagToRecording:
 
 	def _read_imu_msg(self, m, t):
 		self.imu.add_data("gyr_x", m.angular_velocity.x, t)
-		self.imu.add_data("gyr_y", m.angular_velocity.x, t)
-		self.imu.add_data("gyr_z", m.angular_velocity.x, t)
+		self.imu.add_data("gyr_y", m.angular_velocity.y, t)
+		self.imu.add_data("gyr_z", m.angular_velocity.z, t)
 		self.imu.add_data("acc_x", m.linear_acceleration.x, t)
-		self.imu.add_data("acc_y", m.linear_acceleration.x, t)
-		self.imu.add_data("acc_z", m.linear_acceleration.x, t)
+		self.imu.add_data("acc_y", m.linear_acceleration.y, t)
+		self.imu.add_data("acc_z", m.linear_acceleration.z, t)
 
 
 	def _read_navsat_msg(self, m, t):
@@ -50,9 +51,10 @@ class RosbagToRecording:
 		r, p, y = euler_from_quaternion([m.pose.pose.orientation.x, m.pose.pose.orientation.y,
 										 m.pose.pose.orientation.z, m.pose.pose.orientation.w])
 
+		r, p, y = np.rad2deg(r), np.rad2deg(p), np.rad2deg(y)
 		self.imu.add_data("roll", r, t)
 		self.imu.add_data("pitch", p, t)
-		self.imu.add_data("yaw", r, t)
+		self.imu.add_data("yaw", y, t)
 
 		self.imu.add_data("vel_x", m.twist.twist.linear.x, t)
 		self.imu.add_data("vel_y", m.twist.twist.linear.y, t)
@@ -76,7 +78,8 @@ class RosbagToRecording:
 				self._read_imu_msg(msg, t)
 			elif topic == self.wheel_topic:
 				self._read_wheel_msg(msg, t)
-		self.imu.save(os.path.splitext(file_path)[0] + "_from_bag")
+		#self.imu.save(os.path.splitext(file_path)[0] + "_from_bag")
+		return self.imu
 
 if __name__ == '__main__':
 	#converter = RosbagToRecording()

@@ -49,7 +49,7 @@ def align_time(imus, start_time=-np.inf, end_time=np.inf):
 	#updated_imus = [sbg, xsens, vbox]
 	#return updated_imus
 
-def align_data(imus, vel_x=False, vel_y=False, latitude=False, longitude=False, yaw=False):
+def align_imus(imus):
 	"""
 	Align the datafields set to True
 

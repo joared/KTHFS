@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import matplotlib.animation as animation
@@ -26,11 +27,12 @@ class ImuPlotter:
 	def show(self):
 		plt.show()
 
-	def on_resize(self, event):
-		self.figgy.canvas.draw()
+	#def on_resize(self, event):
+	#	self.figgy.canvas.draw()
 
 	def on_click(self, event):
-		print(event)
+		#print(event)
+		pass
 
 	def on_key_press(self, event):
 		k = event.key
@@ -44,14 +46,19 @@ class ImuPlotter:
 			else: self.play_speed -= 0.5
 		elif k == "r":
 			self.reset = True
+			self.play_speed = 1
 		elif k in [str(i) for i in range(1,10)]:
 			self.play_speed = int(k)
 
 	def on_scroll(self, event):
 		self.t_rel += event.step
+		if event.step < 0:
+			self.done_imus = {imu: False for imu in self.imus}
 
 	def play_animation(self, pos=False, vel=False, acc=False, gyr=False,
 				  	   update_freq=30, play_speed=1, start_time=0, blit=False):
+		# NOTE: blitting will give a lot smoother animation BUT
+		# disable proper zooming and panning
 		interval = 1.0/update_freq*1000
 		self.update_freq = update_freq
 		self.play_speed = play_speed
@@ -222,9 +229,12 @@ class ImuPlotter:
 			#lines = self.ax_pos.plot([1,2,3,4,5], [1,2,5,7,9]) # this messes everything up for some reason
 			#track_lines.append(lines[0])
 
-			x0, y0, zone_nr, _ = utm.from_latlon(imu.lat[0], imu.long[0])
-			x, y, _, _ = utm.from_latlon(imu.lat[i], imu.long[i], force_zone_number=zone_nr)
-			x, y = x-x0, y-y0
+			#x0, y0, zone_nr, _ = utm.from_latlon(imu.lat[0], imu.long[0])
+			#x, y, _, _ = utm.from_latlon(imu.lat[i], imu.long[i], force_zone_number=zone_nr)
+			#x, y = x-x0, y-y0
+
+			x = imu.pos_x[i]
+			y = imu.pos_y[i]
 
 			yaw = imu.yaw[i]
 			yaw = np.pi/2 - yaw # transform from yaw relative north to yaw relative x
@@ -269,20 +279,8 @@ class ImuPlotter:
 		self.markers = markers
 		return markers
 
-	def plot_pos(self, t_rel=None):
-		for imu in self.imus:
-			if not t_rel: 
-				idx = len(imu.time)
-			else:
-				idx = imu.time_index(imu.time[0]+t_rel)+1
-			
-			x_pos = imu.pos_x[:idx]
-			y_pos = imu.pos_y[:idx]
-			plt.plot(x_pos[:idx], y_pos[:idx])#, color="lightgray")	
-			plt.ylabel("Northings")
-			plt.xlabel("Eastings")
-
 	def plot_all(self, t_rel=None):
+		plt.figure()
 		# pose
 		plt.subplot(2,2,1)
 		plt.cla()
@@ -299,6 +297,19 @@ class ImuPlotter:
 		plt.subplot(2,2,4)
 		plt.cla()
 		self.plot_gyr(t_rel)
+
+	def plot_pos(self, t_rel=None):
+		for imu in self.imus:
+			if not t_rel: 
+				idx = len(imu.time)
+			else:
+				idx = imu.time_index(imu.time[0]+t_rel)+1
+			
+			x_pos = imu.pos_x[:idx]
+			y_pos = imu.pos_y[:idx]
+			plt.plot(x_pos[:idx], y_pos[:idx])#, color="lightgray")	
+			plt.ylabel("Northings")
+			plt.xlabel("Eastings")
 
 	def plot_pos_err(self, t_rel=None):
 		if not t_rel: 

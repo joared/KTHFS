@@ -41,6 +41,7 @@ class ImuRecording(object):
 
 		self.files_dir = files_dir
 		self.processed_data = {key: [] for key in self.PROCESSED_DATA_KEYS}
+		self.epsilon = 1e-9 # abs values below this are considered to be zero
 
 	def __getattr__(self, attr):
 		"""
@@ -65,9 +66,16 @@ class ImuRecording(object):
 		else:
 			self.__dict__[attr] = val
 			
+	def __str__(self):
+		s = "time: " + str(len(self.processed_data["time"]))
+		for k in self.processed_data:
+			if k != "time":
+				s += "\n{}: {}".format(k, len(self.processed_data[k]))
+		return s
+
 	def __eq__(self, other):
 		for k in self.processed_data:
-			if self.processed_data[k] != other.processed_data[k]:
+			if abs(self.processed_data[k] - other.processed_data[k]) < self.epsilon:
 				return False
 		return True
 
@@ -83,6 +91,36 @@ class ImuRecording(object):
 		"""
 		self.files_dir = files_dir
 		
+	def verify_data(self):
+		"""
+		Verifies that the processed_data dict is correct
+		"""
+		assert all([k in self.PROCESSED_DATA_KEYS for k in self.processed_data]),\
+			"Recording contains invalid data fields"
+
+		time_ls = self.processed_data["time"]
+		assert all(time_ls[i] <= time_ls[i + 1] for i in range(len(time_ls)-1)),\
+			"time data is not in ascending order"
+
+		len_time = len(self.processed_data["time"])
+		lengths = [len(self.processed_data[k]) for k in self.PROCESSED_DATA_KEYS]
+		len_set = set(lengths)
+		
+		if len_time > 0:
+			# at least one more data field should have the same length
+			print(lengths)
+			assert lengths.count(len_time) > 1, "The stored data do not have the same lengths"
+
+		if len_time == 0:
+			# all data should have 0 length
+			assert len(len_set) == 1, "The time data is empty, but there exists data in some other field(s)"
+		elif len(len_set) == 2:
+			# if there are different lengths in the data, 0 should be one of the lengths 
+			# (it is ok to have some empty data fields while others are not)
+			assert 0 in len_set, "The stored data do not have the same lengths."
+		else:
+			assert len(len_set) == 1, "The stored data do not have the same lengths."
+
 	def read(self, file_path, delimiter="\t"):
 		"""
 
@@ -95,8 +133,7 @@ class ImuRecording(object):
 		ext = os.path.splitext(file_path)[1]
 		if not ext == ".processed":
 			raise Exception("Can only read .processed data files. Not '.{}'".format(ext))
-
-		print("Read processed data from '{}'".format(file_path))	
+		
 		with open(file_path, "r") as f:
 			read_keys = True
 			for line in f:
@@ -107,7 +144,7 @@ class ImuRecording(object):
 					read_keys = False
 				else:
 					vals = [val.strip() for val in line.split(delimiter)]
-					for k, val in zip(self.PROCESSED_DATA_KEYS, vals):
+					for k, val in zip(keys, vals):
 						try:
 							val = float(val)
 						except ValueError:
@@ -115,26 +152,30 @@ class ImuRecording(object):
 							raise Exception("Non float value found in .processed file, value is '{}'.".format(val))
 						else:
 							self.processed_data[k].append(val)
+							
+		print("Read processed data from '{}'".format(file_path))
 
-	def save(self, file_path, delimiter="\t"):
+	def save(self, file_path, delimiter="\t", keys=None):
 		"""
 		Saves the data in self.processed_data in file defined by file_path (replaces given extension with .processed)
 		"""
-		#path, ext = os.path.splitext(file_path)
+		if not keys: 
+			keys = self.PROCESSED_DATA_KEYS
+		else:
+			assert "time" in keys, "time needs to be saved"
+			assert len(keys) > 1, "Can't save only time data!"
+			for k in keys:
+				assert k in self.PROCESSED_DATA_KEYS, "'{}' is an invalid data field"
+
+		assert len(self.processed_data['time']) > 0, "Recording has no time data"
+		# verify that the length of all data is equal
+		self.verify_data()
+
 		file_path = os.path.splitext(file_path)[0] + ".processed"
 		file_path = os.path.join(self.files_dir, file_path)
-		
-		assert len(self.processed_data['time']) > 0, "Recording needs time data"
-
-		# verify that the length of all data is equal
-		len_set = set([len(self.processed_data[k]) for k in self.PROCESSED_DATA_KEYS])
-		if len(len_set) == 2:
-			assert 0 in len_set, "The stored data do not have the same lengths."
-		else:
-			assert len(len_set) == 1, "The stored data do not have the same lengths."
 
 		with open(file_path, "w") as f:
-			non_empty_keys = [key for key in self.PROCESSED_DATA_KEYS if self.processed_data[key]]
+			non_empty_keys = [key for key in keys if self.processed_data[key]]
 			f.write(delimiter.join(non_empty_keys) + "\n")
 			
 			for i in range(len(self.processed_data['time'])):
@@ -178,38 +219,50 @@ class ImuRecording(object):
 		"""
 		return closest_index(self.time, time)
 
-
 	def add_data(self, key, val, time=None):
+		assert key != "time", "Nope, it is not alowed to add time like that!"
+		assert key in self.PROCESSED_DATA_KEYS, "'{}' is not a valid data field".format(key)
 		l = len(self.processed_data["time"])
-		if l > 0:
+		l_data = len(self.processed_data[key])
+
+
+		if time is None or (l > 0 and time == self.time[-1]):
 			
-			if time is None or time == self.time[-1]:
-				assert len(self.processed_data[key]) == l, "Data has different length from time data"
-				self.processed_data[key][-1] = val
-				return
-
-			assert time > self.time[-1], "Time is earlier than the latest recorded time"
-
-		assert time >= 0, "Time has to be positive"
-		assert key != "time", "time should not be changed like this."
-		assert key in self.PROCESSED_DATA_KEYS, "'{}' is not a valid data key.".format(key)
-		
-		self.processed_data["time"].append(time)
-
-		for k in self.PROCESSED_DATA_KEYS:
-			if k == "time": continue
-			data = self.processed_data[k]
-			assert len(data) == l, "Data has different length from time data"
-
-			if k == key:
-				data.append(val)
-			elif k == "time":
-				data.append(time)
-			else:
+			if l_data == 0:
 				if l == 0:
-					data.append(0) # adding a zero for all other values
-				else:
-					data.append(data[-1])
+					# first data
+					self.processed_data["time"].append(time)
+				# this essentially makes it ok to have time values but no other values
+				# (should it be checked here?)
+				self.processed_data[key] = [0]*(l-1) + [val]
+
+			elif l_data < l:
+				# should not happen
+				raise Exception("'{}' and time have different lengths".format(key))
+			elif l_data == l:
+				self.processed_data[key][-1] = val
+			else: # l_data > l
+				raise Exception("Data field '{}' and time has different lengths".format(key))
+		else:
+			if l == 0:
+				# first data added, all data lists should be empty
+				assert all([len(self.processed_data[k]) == 0 for k in self.PROCESSED_DATA_KEYS]),\
+					"Data field time is empty but not all other data. This should not happen."
+				self.processed_data["time"].append(time)
+				self.processed_data[key].append(val)
+			else:
+				# we have already checked if time is equal last time
+				assert time > self.processed_data["time"][-1], "Time is earlier than the latest recorded time"
+				self.processed_data["time"].append(time)
+				self.processed_data[key].append(val)
+
+				# Pad all other values with their respective last value
+				for k in self.PROCESSED_DATA_KEYS:
+					# pad only if data already exist
+					if k != key and k != "time" and self.processed_data[k]:
+						# Redundancy check if there are data with wrong/different lengths 
+						assert len(self.processed_data[k]) == l, "'{}' and time have different lengths".format(key)
+						self.processed_data[k].append(self.processed_data[k][-1]) # pad with last values
 
 	def time_with_freq(self, freq):
 		"""
@@ -230,7 +283,6 @@ class ImuRecording(object):
 		# TODO: reset all values that are not aligned?
 		if keys is None: 
 			keys = self.processed_data.keys()
-			keys.pop(keys.index("time")) # time should not be included
 		else:
 			for k in keys:
 				assert k in self.PROCESSED_DATA_KEYS, "'{}' is not a valid key".format(k)
@@ -264,10 +316,7 @@ class ImuRecording(object):
 				next_val = self.processed_data[key][next_index]
 	
 				# Interpolate the value to requested time t
-				if key in ["roll", "pitch", "yaw"]:
-					# assuming radians
-					interpolated_val = interpolate_linear_angle(prev_val, next_val, prev_time, next_time, t, np.pi, -np.pi)
-				elif key in ["lat", "long"]:
+				if key in ["roll", "pitch", "yaw", "gps_lat", "gps_long"]:
 					# assuming degrees
 					interpolated_val = interpolate_linear_angle(prev_val, next_val, prev_time, next_time, t, 180, -180)
 				else:
@@ -279,7 +328,38 @@ class ImuRecording(object):
 		self.processed_data["time"] = [t for t in aligned_time]
 
 	def is_aligned_with(self, imu):
-		return all([t1 == t2 for t1,t2 in zip(self.time, imu.time)])
+		if len(self.time) != len(imu.time):
+			print("time has different lengths, {} and {}".format(len(self.time), len(imu.time)))
+			return False
+		return all([abs(t1 - t2) < self.epsilon for t1,t2 in zip(self.time, imu.time)])
+
+	def compare(self, other, keys=None):
+		assert self.is_aligned_with(other), "Imus are not aligned. Align before comparing."
+		if keys is None:
+			keys = self.PROCESSED_DATA_KEYS
+		else:
+			for k in keys:
+				assert k != "time", "time should not be compared"
+				assert k in self.PROCESSED_DATA_KEYS, "'{}' is not a valid data field"
+		comp_imu = ImuRecording(name=self.name + "_vs_" + other.name)
+		comp_imu.time = [t for t in self.time]
+		for k in keys:
+			if k != "time":
+				a = np.array(self.processed_data[k])
+				b = np.array(other.processed_data[k])
+				diff = a - b
+				for i, d in enumerate(diff):
+					if d > 5:
+						print("MMMM")
+						print(a[i])
+						print(b[i])
+				if k in ["roll", "pitch", "yaw", "gps_lat", "gps_long"]:
+					# assuming degrees
+					diff = (diff + 180) % 360 - 180
+				diff = [0 if abs(err) < self.epsilon else err for err in diff]
+				comp_imu.processed_data[k] = diff
+		return comp_imu
+
 
 	""" Some methods with implementations refactored elsewhere"""
 
@@ -302,237 +382,19 @@ class ImuRecording(object):
 		bagger.create_rosbag(file_path)
 		print("Wrote data to rosbag '{}'".format(file_path))
 		
-	def plot_all(self):
+	def plot_all(self, show=True):
 		from imu_plotter import ImuPlotter
 		plotter = ImuPlotter([self])
 		plotter.plot_all()
-		plotter.show()
-
-class XsensRecording(ImuRecording):
-	DELIMITER = "\t"
-	NAME = "Xsens"
-		
-	def read_ascii(self, file_path, delimiter):
-		ignored_lines = []
-		read_data = False
-		
-		with open(file_path, "r") as f:
-			for line in f:
-				if "PacketCounter" in line:
-					self.read_data_type_line(line, delimiter)
-					read_data = True
-				elif read_data is True:
-					self.read_data_line(line, delimiter)
-				else:
-					ignored_lines.append(line)
-					
-		self._process_data(self.ascii_data)
-		return ignored_lines
-
-	def _process_data(self, data):
-		data = data.copy()
-		self.time = self._utc_to_sec(data)
-		#self.acc_x = self.data["Acc_X"]
-		#self.acc_y = self.data["Acc_Y"]
-		#self.acc_z = self.data["Acc_Z"]
-		#self.gyr_x = self.data["Gyr_X"]
-		#self.gyr_y = self.data["Gyr_Y"]
-		#self.gyr_z = self.data["Gyr_Z"]
-		#self.vel_inc_x = self.data["VelInc_X"]
-		#self.vel_inc_y = self.data["VelInc_Y"]
-		#self.vel_inc_z = self.data["VelInc_Z"]
-		self.processed_data["vel_x"] = data["Vel_X"]#self._velocity_converter()#
-		self.processed_data["vel_y"] = data["Vel_Y"]
-		#self.vel_z = self.data["Vel_Z"]
-		#self.roll = self.data["Roll"]
-		#self.pitch = self.data["Pitch"]
-		self.processed_data["yaw"] = [convert_angle_in_range(180, -180, a) for a in list(-np.array(data["Yaw"]) + 90)]
-		self.processed_data["long"] = data["Longitude"]
-		self.processed_data["lat"] = data["Latitude"]
-		(self.processed_data["pos_x"], 
-		 self.processed_data["pos_y"]) = self.latlon_to_pos(self.processed_data["lat"],
-		 													 self.processed_data["long"])
-
-	def _utc_to_sec(self, data):
-		#print("Converting UTC Time to sec")
-		sec_values = [] # Init new list
-		for i in range(len(data["UTC_Minute"])):
-			hour = data["UTC_Hour"][i]
-			minute = data["UTC_Minute"][i]
-			second = data["UTC_Second"][i]
-			mili = data["UTC_Nano"][i]/1000000000.0
-
-			sec_values.append(60*60*hour+60*minute+second+mili)
-		return sec_values
-
-	def _velocity_converter(self):
-		pass
-
-
-		
-class VBOXRecording(ImuRecording):
-		
-	def read_ascii(self, file_path, delimiter=" "):
-		ignored_lines = []
-		with open(file_path, "r") as f:
-			
-			read_data_types = False
-			read_data = False
-			
-			for line in f:
-				if "[column names]" in line:
-					read_data_types = True
-					
-				elif "[data]" in line:
-					read_data = True
-					
-				elif read_data_types is True:
-					read_data_types = False
-					self.read_data_type_line(line, delimiter)
-					
-				elif read_data is True:
-					self.read_data_line(line, delimiter)
-				else:
-					#print("Ignoring '{}'".format(line))
-					ignored_lines.append(line)
-					
-		self._process_data(self.ascii_data)	
-		return ignored_lines
-
-	def _process_data(self, data):
-		# TODO: units not used atm
-		data = data.copy()
-		self.processed_data["time"] = self._utc_to_sec(data)
-		#self.processed_data["gps_long"] = data["Lon"]
-		#self.processed_data["gps_lat"] = data["Lat"]
-		self.processed_data["long"] = [-v/60 for v in data["long"]] # minutes to degrees
-		self.processed_data["lat"] = [v/60 for v in data["lat"]]  # minutes to degrees
-		(self.processed_data["pos_x"], 
-		 self.processed_data["pos_y"]) = self.latlon_to_pos(self.processed_data["lat"],
-		 													 self.processed_data["long"])
-		self.processed_data["vel_x"] = data["velocity"]
-		self.processed_data["vel_y"] = [-v for v in data["vert-vel"]]
-		self.processed_data["vel_z"] = data["vert-vel"]
-		#self.processed_data["vel_z"] = data["Z Velocity"]
-		#self.processed_data["roll"] = data["Roll"]
-		#self.processed_data["pitch"] = data["Pitch"]
-		self.processed_data["yaw"] = data["heading"]#["heading"]
-		#self.processed_data["acc_x"] = data["Accelerometer X"]
-		#self.processed_data["acc_y"] = data["Accelerometer Y"]
-		#self.processed_data["acc_z"] = data["Accelerometer Z"]
-		#self.processed_data["gyr_x"] = data["Gyroscope X"]
-		#self.processed_data["gyr_y"] = data["Gyroscope Y"]
-		#self.processed_data["gyr_z"] = data["Gyroscope Z"]
-
-	def _utc_to_sec(self, data):
-		#print("Converting UTC Time to sec")
-		sec_values = [] # Init new list
-		for t in data["time"]:
-			t_str = str(t)
-			hour = float(t_str[0:2])
-			minute = float(t_str[2:4])
-			sec = float(t_str[4:])
-			sec_values.append(60*60*hour+60*minute+sec)
-		return sec_values
-
-		
-class SBGRecording(ImuRecording):
-
-	def read_ascii(self, file_path, delimiter):
-		ignored_lines = []
-		with open(file_path, "r") as f:
-			for i, line in enumerate(f):
-				if i == 0:
-					self.read_data_type_line(line, delimiter)
-				elif i == 1:
-					#ignored_lines.append(line)
-					units = line.split(delimiter)
-				else:
-					self.read_data_line(line, delimiter)
-		
-		self._process_data(self.ascii_data, units)
-		return ignored_lines
-
-
-	def _process_data(self, data, units):
-		# TODO: units not used atm
-		data = data.copy()
-		self.processed_data["time"] = self._utc_to_sec(data)
-		#self.processed_data["gps_long"] = data["Lon"]
-		#self.processed_data["gps_lat"] = data["Lat"]
-		self.processed_data["long"] = data["Longitude"]
-		self.processed_data["lat"] = data["Latitude"]
-		(self.processed_data["pos_x"], 
-		 self.processed_data["pos_y"]) = self.latlon_to_pos(self.processed_data["lat"],
-		 													 self.processed_data["long"])
-		self.processed_data["vel_x"] = data["X Velocity"]
-		self.processed_data["vel_y"] = data["Y Velocity"]
-		self.processed_data["vel_z"] = data["Z Velocity"]
-		self.processed_data["roll"] = data["Roll"]
-		self.processed_data["pitch"] = data["Pitch"]
-		self.processed_data["yaw"] = data["Yaw"]
-		self.processed_data["acc_x"] = data["Accelerometer X"]
-		self.processed_data["acc_y"] = data["Accelerometer Y"]
-		self.processed_data["acc_z"] = data["Accelerometer Z"]
-		self.processed_data["gyr_x"] = data["Gyroscope X"]
-		self.processed_data["gyr_y"] = data["Gyroscope Y"]
-		self.processed_data["gyr_z"] = data["Gyroscope Z"]
-
-		# convert long/lat data to degrees
-		#for k1, k2 in zip(["Longitude", "Latitude"], ["long", "lat"]):
-		#	if not "\xc2" in units[self.ascii_data_keys.index(k1)]:
-		#		print("hurraaa")
-		#		self.rad_to_deg(k2)
-
-		#for k1, k2 in zip(["Roll", "Pitch", "Yaw"], ["roll", "pitch", "yaw"]):
-		#	if "\xc2" in units[self.ascii_data_keys.index(k1)]:
-		#		self.deg_to_rad(k2)
-
-		#print("Processed ASCII data!")
-
-
-	def _utc_to_sec(self, data):
-		sec_values = [] # Init new list
-		for t in data["UTC Time"]:
-			hour_min_sec = t.split(":")
-			sec_values.append(60*60*float(hour_min_sec[0])+60*float(hour_min_sec[1])+float(hour_min_sec[2]))
-		return sec_values
-
+		if show: plotter.show()
+	
+	
 if __name__ == "__main__":
-	from imu_plotter import ImuPlotter
 	imu = ImuRecording()
 	imu.read("SBG_general_000.processed")
-
-	print(len(imu.time))
-	imu.align_freq(0.1)
-	print(len(imu.time))
-	plotter = ImuPlotter(imu)
-	plotter.plot_all()
-	plotter.show()
-	print(dir(imu))
-	
-	
-
-if __name__ == "__main__e":
-	reader_classes = ImuRecording.__subclasses__()
-	reader_classes.append(ImuRecording)
-	reader_names = [cls.__name__ for cls in reader_classes]
-	parser = argparse.ArgumentParser(description="Converts an IMU ASCII recording to a .processed file.")
-	parser.add_argument('reader', type=str, choices=reader_names, help="The class which will be used for reading the file.")
-	parser.add_argument('file', type=str, help="ASCII file recording containing the recorded IMU values.")
-	parser.add_argument("-d", '--delimiter', default="t", choices=["t", "s", ""], type=str, help="Delimiter used in the recording.")
-	args = parser.parse_args()
-
-	if args.delimiter == "t": args.delimiter = "\t"
-	if args.delimiter == "s": args.delimiter = " "
-	if args.delimiter == "": args.delimiter = None
-
-	try:
-		reader_idx = reader_names.index(args.reader)
-	except ValueError:
-		print("Reader '{}' does not exist. Choose from: {}".format(args.reader, reader_names))
-	else:
-		imu_reader = reader_classes[reader_idx]()
-
-	imu_reader.read(args.file, delimiter=args.delimiter)
-	imu_reader.save(args.file)
+	keys = ["time", "vel_x"]
+	#for k in imu.PROCESSED_DATA_KEYS:
+	#	if k not in keys:
+	#		imu.processed_data[k] = []
+	imu.add_data("vel_x", 0, 100000)
+	imu.save("test_praaa", keys=["time"])
