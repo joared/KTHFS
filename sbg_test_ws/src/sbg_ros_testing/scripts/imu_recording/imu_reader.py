@@ -43,7 +43,7 @@ class ImuReader:
 			except ValueError:
 				val = s
 			values.append(val)
-			
+
 		for k, v in zip(self.ascii_data_keys, values):
 			self.ascii_data[k].append(v)
 
@@ -87,12 +87,15 @@ class XsensReader(ImuReader):
 		#imu.vel_inc_x = self.data["VelInc_X"]
 		#imu.vel_inc_y = self.data["VelInc_Y"]
 		#imu.vel_inc_z = self.data["VelInc_Z"]
-		imu.vel_x = data["Vel_X"]#self._velocity_converter()#
-		imu.vel_y = data["Vel_Y"]
-		imu.vel_z = data["Vel_Z"]
+		
 		#imu.roll = self.data["Roll"]
 		#imu.pitch = self.data["Pitch"]
 		imu.yaw = [convert_angle_in_range(180, -180, a) for a in list(-np.array(data["Yaw"]) + 90)]
+		for yaw, vx, vy in zip(data["Yaw"], data["Vel_X"], data["Vel_Y"]):
+			vx_rel = 
+			imu.vel_x.append()
+
+		imu.vel_z = data["Vel_Z"]
 		#self.processed_data["long"] = data["Longitude"]
 		#self.processed_data["lat"] = data["Latitude"]
 		imu.pos_x, imu.pos_y = self.latlon_to_pos(data["Latitude"], data["Longitude"])
@@ -137,9 +140,15 @@ class VBOXReader(ImuReader):
 		(imu.processed_data["pos_x"], 
 		 imu.processed_data["pos_y"]) = self.latlon_to_pos([v/60. for v in data["lat"]],
 		 												   [-v/60. for v in data["long"]])
-		imu.processed_data["vel_x"] = data["velocity"]
+		imu.processed_data["vel_x"] = list(np.array(data["velocity"])/3600.0*1000.0)
 		imu.processed_data["vel_y"] = [-v for v in data["vert-vel"]]
 		imu.processed_data["vel_z"] = data["vert-vel"]
+		imu.processed_data["acc_x"] = data["X_Accel"]
+		imu.processed_data["acc_y"] = data["Y_Accel"]
+		imu.processed_data["acc_z"] = data["Z_Accel"]
+		imu.processed_data["gyr_x"] = data["RollRate"]
+		imu.processed_data["gyr_y"] = data["PitchRate"]
+		imu.processed_data["gyr_z"] = data["YawRate"]
 		imu.processed_data["yaw"] = data["heading"]
 		return imu
 

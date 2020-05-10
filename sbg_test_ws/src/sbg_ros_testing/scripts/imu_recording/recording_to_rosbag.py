@@ -89,6 +89,7 @@ class RecordingToBag:
 	def create_rosbag(self, name, on_new_data=False, freq_dict=None):
 		# TODO: use freq_dict to set frequency of each signal,
 		# None means on new data
+		# freq_dict = {"odom": 50, "imu": 100}
 		self.freq_dict = None
 
 		name = os.path.splitext(name)[0] + ".bag"
@@ -98,12 +99,12 @@ class RecordingToBag:
 			
 				write_imu = bool(self.imu.acc_x)
 				write_gps = bool(self.imu.gps_long)
-				write_odom = bool(self.imu.pos_x)
+				write_odom = bool(self.imu.vel_x)
 				#write_wheel = True
 				if i > 0 and on_new_data:
 					write_imu = write_imu and self.imu.acc_x[i] != self.imu.acc_x[i-1]
 					write_gps = write_gps and self.imu.gps_long[i] != self.imu.gps_long[i-1]
-					write_odom = write_odom and self.imu.pos_x[i] != self.imu.pos_x[i-1]
+					write_odom = write_odom and self.imu.vel_x[i] != self.imu.vel_x[i-1]
 					#write_wheel = write_wheel and True
 
 				# acceleration, gyroscope and magnetometer

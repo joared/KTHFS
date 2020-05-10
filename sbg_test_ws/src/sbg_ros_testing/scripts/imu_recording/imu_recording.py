@@ -108,7 +108,6 @@ class ImuRecording(object):
 		
 		if len_time > 0:
 			# at least one more data field should have the same length
-			print(lengths)
 			assert lengths.count(len_time) > 1, "The stored data do not have the same lengths"
 
 		if len_time == 0:
@@ -199,19 +198,19 @@ class ImuRecording(object):
 		"""
 		return
 
-	def deg_to_rad(self, *keys):
-		"""
-		Converts the data for given key in processed_data from degrees to radians
-		"""
-		for key in keys:
-			self.processed_data[key] = list(np.array(self.processed_data[key])/180*np.pi)
+	#def deg_to_rad(self, *keys):
+	#	"""
+	#	Converts the data for given key in processed_data from degrees to radians
+	#	"""
+	#	for key in keys:
+	#		self.processed_data[key] = list(np.array(self.processed_data[key])/180*np.pi)
 
-	def rad_to_deg(self, *keys):
-		"""
-		Converts the data for given key in processed_data from radians to degrees
-		"""
-		for key in keys:
-			self.processed_data[key] = list(np.array(self.processed_data[key])/np.pi*180)			
+	#def rad_to_deg(self, *keys):
+	#	"""
+	#	Converts the data for given key in processed_data from radians to degrees
+	#	"""
+	#	for key in keys:
+	#		self.processed_data[key] = list(np.array(self.processed_data[key])/np.pi*180)			
 
 	def time_index(self, time):
 		"""
@@ -306,10 +305,13 @@ class ImuRecording(object):
 					prev_val = self.processed_data[key][prev_index]
 				except:
 					print(key)
-					raise Exception()
+					raise Exception("Shouldn't happend?")
 				if prev_index == max_idx:
 					aligned_data.append(prev_val)
 					break
+				if abs(t - prev_time) < self.epsilon:
+					aligned_data.append(prev_val)
+					continue
 				# Find the next value
 				next_index = prev_index + 1
 				next_time = self.processed_data["time"][next_index]
@@ -329,7 +331,7 @@ class ImuRecording(object):
 
 	def is_aligned_with(self, imu):
 		if len(self.time) != len(imu.time):
-			print("time has different lengths, {} and {}".format(len(self.time), len(imu.time)))
+			#print("time has different lengths, {} and {}".format(len(self.time), len(imu.time)))
 			return False
 		return all([abs(t1 - t2) < self.epsilon for t1,t2 in zip(self.time, imu.time)])
 
@@ -345,19 +347,15 @@ class ImuRecording(object):
 		comp_imu.time = [t for t in self.time]
 		for k in keys:
 			if k != "time":
-				a = np.array(self.processed_data[k])
-				b = np.array(other.processed_data[k])
-				diff = a - b
-				for i, d in enumerate(diff):
-					if d > 5:
-						print("MMMM")
-						print(a[i])
-						print(b[i])
-				if k in ["roll", "pitch", "yaw", "gps_lat", "gps_long"]:
-					# assuming degrees
-					diff = (diff + 180) % 360 - 180
-				diff = [0 if abs(err) < self.epsilon else err for err in diff]
-				comp_imu.processed_data[k] = diff
+				if self.processed_data[k] and other.processed_data[k]:
+					a = np.array(self.processed_data[k])
+					b = np.array(other.processed_data[k])
+					diff = a - b
+					if k in ["roll", "pitch", "yaw", "gps_lat", "gps_long"]:
+						# assuming degrees
+						diff = (diff + 180) % 360 - 180
+					diff = [0 if abs(err) < self.epsilon else err for err in diff]
+					comp_imu.processed_data[k] = diff
 		return comp_imu
 
 

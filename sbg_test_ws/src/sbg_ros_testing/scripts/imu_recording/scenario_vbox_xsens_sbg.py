@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
 	sbg = read_sbg(sbg_files[current_test], delimiter="\t", files_dir=fd)
 	xsens = read_xsens(xsens_files[current_test], delimiter="\t", files_dir=fd)
-	vbox = read_vbox(vbox_files[current_test], delimiter=" ", files_dir=fd)
+	vbox = read_vbox(vbox_files[current_test], delimiter=None, files_dir=fd)
 	
 	# verifies that the data has correct format
 	sbg.verify_data()
@@ -33,10 +33,6 @@ if __name__ == '__main__':
 	sbg.name = "SBG"
 	xsens.name = "XSENS"
 	vbox.name = "VBOX"
-
-	sbg.deg_to_rad("yaw")
-	vbox.deg_to_rad("yaw")
-	xsens.deg_to_rad("yaw")
 
 	sbg.read("SBG_general_000.processed")
 	vbox.read("VBOX0000.processed")
@@ -48,16 +44,22 @@ if __name__ == '__main__':
 	#vbox.align_data(t)#, keys)
 	#xsens.align_data(t)#, keys)
 	
-	#sbg.save(sbg_files[current_test])
-	#vbox.save(vbox_files[current_test])
-	#xsens.save(xsens_files[current_test])
+	sbg.save(sbg_files[current_test])
+	vbox.save(vbox_files[current_test])
+	xsens.save(xsens_files[current_test])
 
 	from imu_plotter import ImuPlotter
 	#p = ImuPlotter([vbox, xsens, sbg])
+
+	print(vbox)
+	print(sbg)
+	diff = vbox.compare(xsens)
+	diff.plot_all()
+
 	p = ImuPlotter([sbg, vbox, xsens])
-	p.play_animation(update_freq=60, play_speed=1, start_time=0)
+	p.play_animation(update_freq=60, play_speed=1, start_time=0, blit=False)
 	#p.plot_pos()
-	#p.show()
+	p.show()
 	#Writer = animation.writers['ffmpeg']
 	#writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
 	#p.ani.save("test.mp4")
