@@ -91,10 +91,12 @@ class XsensReader(ImuReader):
 		#imu.roll = self.data["Roll"]
 		#imu.pitch = self.data["Pitch"]
 		imu.yaw = [convert_angle_in_range(180, -180, a) for a in list(-np.array(data["Yaw"]) + 90)]
-		for yaw, vx, vy in zip(data["Yaw"], data["Vel_X"], data["Vel_Y"]):
-			vx_rel = 
-			imu.vel_x.append()
-
+		
+		#for yaw, vx, vy in zip(data["Yaw"], data["Vel_X"], data["Vel_Y"]):
+		#	vx_rel = 
+		#	imu.vel_x.append()
+		imu.vel_x = data["Vel_X"]
+		imu.vel_y = data["Vel_Y"]
 		imu.vel_z = data["Vel_Z"]
 		#self.processed_data["long"] = data["Longitude"]
 		#self.processed_data["lat"] = data["Latitude"]
